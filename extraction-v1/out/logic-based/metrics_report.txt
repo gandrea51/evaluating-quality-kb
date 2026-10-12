@@ -1,0 +1,62 @@
+--- Metriche ---
+{
+  "input": {
+    "chunks": 565,
+    "facts_records": 10,
+    "valid_records": 9,
+    "failed_records": 1,
+    "normalized_facts": 29
+  },
+  "facts": {
+    "occurrences": 29,
+    "distinct_facts": 29,
+    "excess_occurrences": 0,
+    "redundancy_rate": 0.0,
+    "redundant_facts": 0,
+    "cross_doc_redundant_facts": 0
+  },
+  "discordance": {
+    "functional_groups": 10,
+    "conflicting_groups": 0,
+    "discordance_rate": 0.0,
+    "conflicting_groups_cross_doc": 0
+  }
+}
+
+--- Ridondanza ---
+Nessun fatto ridondante.
+
+--- Ridondanza tra documenti ---
+Nessuna ridondanza tra documenti.
+
+--- Discordanze ---
+Nessuna discordanza.
+
+--- Gruppi in conflitto ---
+
+--- Conflitti tra documenti ---
+Nessun conflitto tra documenti.
+
+--- Tempi per fase ---
+Fase                   Chiamate      Secondi
+clingo                        3       0.0404
+input                         3       0.0127
+functional                    1       0.0060
+output                        2       0.0052
+metrics                       1       0.0000
+report                        1       0.0000
+
+--- Dettaglio azioni ---
+001.    0.0056 s | input        | Lettura chunks.jsonl
+002.    0.0017 s | input        | Lettura facts.jsonl
+003.    0.0054 s | input        | Lettura facts_norm.jsonl
+004.    0.0060 s | functional   | Scrittura functional.lp
+005.    0.0399 s | clingo       | Caricamento e grounding programmi ASP
+006.    0.0004 s | clingo       | Risoluzione ASP
+007.    0.0001 s | clingo       | Conversione e raggruppamento atomi
+008.    0.0000 s | metrics      | Calcolo delle metriche
+009.    0.0032 s | output       | Scrittura metrics.json
+010.    0.0020 s | output       | Generazione metrics_report.txt
+011.    0.0000 s | report       | Preparazione riepilogo finale
+
+Tempo totale programma: 0.0653 s

@@ -1,0 +1,143 @@
+Chunk selezionati: 10
+Modello: llama3.1:8b
+Record validi in cache: 0
+[1/10] pdf/(UPI) – ZX Bank Asia.pdf::0000: elaborazione
+  Fatti: 5
+  Parsing OK: True
+[2/10] pdf/(UPI) – ZX Bank Asia.pdf::0001: elaborazione
+  Fatti: 6
+  Parsing OK: True
+[3/10] pdf/(UPI) – ZX Bank Asia.pdf::0002: elaborazione
+  Fatti: 3
+  Parsing OK: True
+[4/10] pdf/(UPI) – ZX Bank Asia.pdf::0003: elaborazione
+  Fatti: 5
+  Parsing OK: True
+[5/10] pdf/(UPI) – ZX Bank Asia.pdf::0004: elaborazione
+  Fatti: 3
+  Parsing OK: True
+[6/10] pdf/About ZX Bank Ltd.pdf::0000: elaborazione
+  Fatti: 10
+  Parsing OK: True
+[7/10] pdf/About ZX Bank Ltd.pdf::0001: elaborazione
+  Fatti: 15
+  Parsing OK: True
+[8/10] pdf/About ZX Bank Ltd.pdf::0002: elaborazione
+  Errore: Unterminated string starting at: line 1 column 1547 (char 1546)
+  Fatti: 0
+  Parsing OK: False
+[9/10] pdf/About ZX Bank Ltd.pdf::0003: elaborazione
+  Fatti: 3
+  Parsing OK: True
+[10/10] pdf/About ZX Bank Ltd.pdf::0004: elaborazione
+  Fatti: 3
+  Parsing OK: True
+
+--- Riepilogo ---
+Chunk selezionati: 10
+Chunk con record: 10
+Fatti estratti: 53
+Parsing falliti: 1
+Output troncati: 0
+Evidenze trovate nel testo: 51/53 (96.2%)
+
+Tempo totale programma: 578.533 s
+
+--- Tempi aggregati per fase ---
+Fase                 Chiamate      Secondi
+chunk_total                10      578.481
+ollama_http                10      578.476
+write                      10        0.038
+input                       1        0.007
+request                    10        0.002
+evidence                    9        0.002
+cache                      11        0.001
+parsing                    10        0.001
+filesystem                  1        0.000
+payload                    10        0.000
+
+--- Elenco cronologico delle azioni ---
+001. [input       ]     0.007 s | Lettura chunks.jsonl
+002. [filesystem  ]     0.000 s | Creazione cartella e preparazione output
+003. [cache       ]     0.000 s | Lettura facts.jsonl esistente
+004. [cache       ]     0.000 s | Calcolo chiave pdf/(UPI) – ZX Bank Asia.pdf::0000
+005. [payload     ]     0.000 s | Costruzione richiesta pdf/(UPI) – ZX Bank Asia.pdf::0000
+006. [request     ]     0.001 s | Serializzazione http pdf/(UPI) – ZX Bank Asia.pdf::0000
+007. [ollama_http ]    48.744 s | Chiamata Ollama e lettura risposta pdf/(UPI) – ZX Bank Asia.pdf::0000
+008. [parsing     ]     0.000 s | Parsing json pdf/(UPI) – ZX Bank Asia.pdf::0000
+009. [evidence    ]     0.000 s | Validazione citazioni pdf/(UPI) – ZX Bank Asia.pdf::0000
+010. [chunk_total ]    48.745 s | Elaborazione completa pdf/(UPI) – ZX Bank Asia.pdf::0000
+011. [write       ]     0.003 s | Scrittura facts.jsonl pdf/(UPI) – ZX Bank Asia.pdf::0000
+012. [cache       ]     0.000 s | Calcolo chiave pdf/(UPI) – ZX Bank Asia.pdf::0001
+013. [payload     ]     0.000 s | Costruzione richiesta pdf/(UPI) – ZX Bank Asia.pdf::0001
+014. [request     ]     0.000 s | Serializzazione http pdf/(UPI) – ZX Bank Asia.pdf::0001
+015. [ollama_http ]    42.141 s | Chiamata Ollama e lettura risposta pdf/(UPI) – ZX Bank Asia.pdf::0001
+016. [parsing     ]     0.000 s | Parsing json pdf/(UPI) – ZX Bank Asia.pdf::0001
+017. [evidence    ]     0.000 s | Validazione citazioni pdf/(UPI) – ZX Bank Asia.pdf::0001
+018. [chunk_total ]    42.141 s | Elaborazione completa pdf/(UPI) – ZX Bank Asia.pdf::0001
+019. [write       ]     0.003 s | Scrittura facts.jsonl pdf/(UPI) – ZX Bank Asia.pdf::0001
+020. [cache       ]     0.000 s | Calcolo chiave pdf/(UPI) – ZX Bank Asia.pdf::0002
+021. [payload     ]     0.000 s | Costruzione richiesta pdf/(UPI) – ZX Bank Asia.pdf::0002
+022. [request     ]     0.000 s | Serializzazione http pdf/(UPI) – ZX Bank Asia.pdf::0002
+023. [ollama_http ]    29.825 s | Chiamata Ollama e lettura risposta pdf/(UPI) – ZX Bank Asia.pdf::0002
+024. [parsing     ]     0.000 s | Parsing json pdf/(UPI) – ZX Bank Asia.pdf::0002
+025. [evidence    ]     0.000 s | Validazione citazioni pdf/(UPI) – ZX Bank Asia.pdf::0002
+026. [chunk_total ]    29.825 s | Elaborazione completa pdf/(UPI) – ZX Bank Asia.pdf::0002
+027. [write       ]     0.003 s | Scrittura facts.jsonl pdf/(UPI) – ZX Bank Asia.pdf::0002
+028. [cache       ]     0.000 s | Calcolo chiave pdf/(UPI) – ZX Bank Asia.pdf::0003
+029. [payload     ]     0.000 s | Costruzione richiesta pdf/(UPI) – ZX Bank Asia.pdf::0003
+030. [request     ]     0.000 s | Serializzazione http pdf/(UPI) – ZX Bank Asia.pdf::0003
+031. [ollama_http ]    56.065 s | Chiamata Ollama e lettura risposta pdf/(UPI) – ZX Bank Asia.pdf::0003
+032. [parsing     ]     0.000 s | Parsing json pdf/(UPI) – ZX Bank Asia.pdf::0003
+033. [evidence    ]     0.000 s | Validazione citazioni pdf/(UPI) – ZX Bank Asia.pdf::0003
+034. [chunk_total ]    56.066 s | Elaborazione completa pdf/(UPI) – ZX Bank Asia.pdf::0003
+035. [write       ]     0.003 s | Scrittura facts.jsonl pdf/(UPI) – ZX Bank Asia.pdf::0003
+036. [cache       ]     0.000 s | Calcolo chiave pdf/(UPI) – ZX Bank Asia.pdf::0004
+037. [payload     ]     0.000 s | Costruzione richiesta pdf/(UPI) – ZX Bank Asia.pdf::0004
+038. [request     ]     0.000 s | Serializzazione http pdf/(UPI) – ZX Bank Asia.pdf::0004
+039. [ollama_http ]    31.087 s | Chiamata Ollama e lettura risposta pdf/(UPI) – ZX Bank Asia.pdf::0004
+040. [parsing     ]     0.000 s | Parsing json pdf/(UPI) – ZX Bank Asia.pdf::0004
+041. [evidence    ]     0.000 s | Validazione citazioni pdf/(UPI) – ZX Bank Asia.pdf::0004
+042. [chunk_total ]    31.087 s | Elaborazione completa pdf/(UPI) – ZX Bank Asia.pdf::0004
+043. [write       ]     0.004 s | Scrittura facts.jsonl pdf/(UPI) – ZX Bank Asia.pdf::0004
+044. [cache       ]     0.000 s | Calcolo chiave pdf/About ZX Bank Ltd.pdf::0000
+045. [payload     ]     0.000 s | Costruzione richiesta pdf/About ZX Bank Ltd.pdf::0000
+046. [request     ]     0.000 s | Serializzazione http pdf/About ZX Bank Ltd.pdf::0000
+047. [ollama_http ]    96.485 s | Chiamata Ollama e lettura risposta pdf/About ZX Bank Ltd.pdf::0000
+048. [parsing     ]     0.000 s | Parsing json pdf/About ZX Bank Ltd.pdf::0000
+049. [evidence    ]     0.000 s | Validazione citazioni pdf/About ZX Bank Ltd.pdf::0000
+050. [chunk_total ]    96.486 s | Elaborazione completa pdf/About ZX Bank Ltd.pdf::0000
+051. [write       ]     0.007 s | Scrittura facts.jsonl pdf/About ZX Bank Ltd.pdf::0000
+052. [cache       ]     0.000 s | Calcolo chiave pdf/About ZX Bank Ltd.pdf::0001
+053. [payload     ]     0.000 s | Costruzione richiesta pdf/About ZX Bank Ltd.pdf::0001
+054. [request     ]     0.000 s | Serializzazione http pdf/About ZX Bank Ltd.pdf::0001
+055. [ollama_http ]   107.702 s | Chiamata Ollama e lettura risposta pdf/About ZX Bank Ltd.pdf::0001
+056. [parsing     ]     0.000 s | Parsing json pdf/About ZX Bank Ltd.pdf::0001
+057. [evidence    ]     0.000 s | Validazione citazioni pdf/About ZX Bank Ltd.pdf::0001
+058. [chunk_total ]   107.702 s | Elaborazione completa pdf/About ZX Bank Ltd.pdf::0001
+059. [write       ]     0.004 s | Scrittura facts.jsonl pdf/About ZX Bank Ltd.pdf::0001
+060. [cache       ]     0.000 s | Calcolo chiave pdf/About ZX Bank Ltd.pdf::0002
+061. [payload     ]     0.000 s | Costruzione richiesta pdf/About ZX Bank Ltd.pdf::0002
+062. [request     ]     0.000 s | Serializzazione http pdf/About ZX Bank Ltd.pdf::0002
+063. [ollama_http ]   106.519 s | Chiamata Ollama e lettura risposta pdf/About ZX Bank Ltd.pdf::0002
+064. [parsing     ]     0.000 s | Parsing json pdf/About ZX Bank Ltd.pdf::0002
+065. [chunk_total ]   106.519 s | Elaborazione completa pdf/About ZX Bank Ltd.pdf::0002
+066. [write       ]     0.003 s | Scrittura facts.jsonl pdf/About ZX Bank Ltd.pdf::0002
+067. [cache       ]     0.000 s | Calcolo chiave pdf/About ZX Bank Ltd.pdf::0003
+068. [payload     ]     0.000 s | Costruzione richiesta pdf/About ZX Bank Ltd.pdf::0003
+069. [request     ]     0.000 s | Serializzazione http pdf/About ZX Bank Ltd.pdf::0003
+070. [ollama_http ]    29.003 s | Chiamata Ollama e lettura risposta pdf/About ZX Bank Ltd.pdf::0003
+071. [parsing     ]     0.000 s | Parsing json pdf/About ZX Bank Ltd.pdf::0003
+072. [evidence    ]     0.000 s | Validazione citazioni pdf/About ZX Bank Ltd.pdf::0003
+073. [chunk_total ]    29.003 s | Elaborazione completa pdf/About ZX Bank Ltd.pdf::0003
+074. [write       ]     0.004 s | Scrittura facts.jsonl pdf/About ZX Bank Ltd.pdf::0003
+075. [cache       ]     0.000 s | Calcolo chiave pdf/About ZX Bank Ltd.pdf::0004
+076. [payload     ]     0.000 s | Costruzione richiesta pdf/About ZX Bank Ltd.pdf::0004
+077. [request     ]     0.000 s | Serializzazione http pdf/About ZX Bank Ltd.pdf::0004
+078. [ollama_http ]    30.906 s | Chiamata Ollama e lettura risposta pdf/About ZX Bank Ltd.pdf::0004
+079. [parsing     ]     0.000 s | Parsing json pdf/About ZX Bank Ltd.pdf::0004
+080. [evidence    ]     0.000 s | Validazione citazioni pdf/About ZX Bank Ltd.pdf::0004
+081. [chunk_total ]    30.906 s | Elaborazione completa pdf/About ZX Bank Ltd.pdf::0004
+082. [write       ]     0.004 s | Scrittura facts.jsonl pdf/About ZX Bank Ltd.pdf::0004
+
+Output salvato in: out\facts.jsonl

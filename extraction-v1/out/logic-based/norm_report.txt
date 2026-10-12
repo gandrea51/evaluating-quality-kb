@@ -1,0 +1,54 @@
+Fatti validi: 29 |Chunk con fatti: 8 |Predicati distinti: 23 |Entità distinte: 13
+Scartati: valore non presente nella citazione: 24
+
+-- Possibili alias di entità --
+upi (6) ~ upi_id (1)
+upi (6) ~ upi_pin (1)
+zx_bank (6) ~ zx_bank_asia (1)
+zx_bank (6) ~ zx_bank_asia_app (1)
+zx_bank (6) ~ zx_bank_ltd (6)
+zx_bank_asia (1) ~ zx_bank_asia_app (1)
+
+-- Entità che condividono una parola --
+parola 'asia': zx_bank_asia (1), zx_bank_asia_app (1)
+parola 'bank': zx_bank (6), zx_bank_asia (1), zx_bank_asia_app (1), zx_bank_ltd (6)
+
+-- Entità (occorrenze) --
+upi: 6
+zx_bank: 6
+zx_bank_ltd: 6
+zia: 2
+zx_bank_asia: 1
+zx_bank_asia_app: 1
+upi_id: 1
+upi_pin: 1
+india: 1
+sri_lanka: 1
+bangladesh: 1
+financial_literacy_campaigns: 1
+w_omen_empowerment_loans: 1
+
+-- Proprietà (occorrenze) --
+features: 3
+operating_status: 3
+location: 2
+type: 2
+description: 1
+supports: 1
+available_for: 1
+example: 1
+digit_length: 1
+status: 1
+functionality: 1
+customer_support_email: 1
+customer_support_phone: 1
+customer_support_in_app: 1
+account_type: 1
+headquarters: 1
+founding_year: 1
+bank_type: 1
+swift_code: 1
+ifsc_example: 1
+website: 1
+target: 1
+region: 1
