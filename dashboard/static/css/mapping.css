@@ -1,0 +1,598 @@
+.coverage-section {
+    --coverage-gap: 16px;
+    --coverage-radius: 12px;
+}
+.coverage-section-heading, .coverage-chart-heading, .coverage-table-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+.coverage-section-heading {
+    margin-bottom: 20px;
+}
+.coverage-eyebrow {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--bs-secondary-color, #6c757d);
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 1.5px;
+}
+.coverage-section .section-title {
+    margin-bottom: 5px;
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+    font-weight: 750;
+    letter-spacing: -0.035em;
+}
+.coverage-intro, .coverage-chart-description {
+    margin: 0;
+    color: var(--bs-secondary-color, #6c757d);
+    font-size: 12px;
+    line-height: 1.55;
+}
+.coverage-k-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    padding: 8px 12px;
+    border: 1px solid var(--bs-border-color, #e5e7eb);
+    border-radius: 10px;
+    background: var(--bs-tertiary-bg, #f8f9fa);
+}
+.coverage-k-badge span {
+    color: var(--bs-secondary-color, #6c757d);
+    font-size: 11px;
+}
+.coverage-k-badge strong {
+    font-size: 21px;
+    line-height: 1;
+    font-weight: 750;
+}
+.coverage-section .coverage-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.coverage-section .coverage-metrics .metric-card {
+    min-width: 0;
+    padding: 15px 16px;
+    border: 1px solid var(--bs-border-color, #e5e7eb);
+    border-radius: var(--coverage-radius);
+    background: var(--bs-body-bg, #fff);
+    box-shadow: 0 2px 8px rgb(15 23 42 / 3%);
+}
+.coverage-section .coverage-metrics .metric-card.highlighted {
+    border-color: var(--bs-primary-border-subtle, #cfe2ff);
+    background: var(--bs-primary-bg-subtle, #f4f8ff);
+}
+.coverage-section .coverage-metrics .metric-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--bs-secondary-color, #6c757d);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+.coverage-section .coverage-metrics .metric-value {
+    display: block;
+    font-size: clamp(1.45rem, 2vw, 1.9rem);
+    font-weight: 750;
+    letter-spacing: -0.045em;
+    line-height: 1.15;
+    font-variant-numeric: tabular-nums;
+}
+.coverage-section .coverage-metrics .metric-sub {
+    display: block;
+    margin-top: 7px;
+    color: var(--bs-secondary-color, #6c757d);
+    font-size: 10.5px;
+    line-height: 1.5;
+}
+.coverage-section .coverage-chart {
+    min-width: 0;
+    margin-bottom: var(--coverage-gap);
+    padding: 17px 18px;
+    overflow: hidden;
+    border: 1px solid var(--bs-border-color, #e5e7eb);
+    border-radius: var(--coverage-radius);
+    background: var(--bs-body-bg, #fff);
+    box-shadow: 0 2px 8px rgb(15 23 42 / 3%);
+}
+.coverage-section .coverage-chart .plot-title, .coverage-section .coverage-table-heading .plot-title {
+    margin: 0 0 4px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+.coverage-chart-heading {
+    align-items: center;
+    margin-bottom: 12px;
+}
+.coverage-chart-tag {
+    flex-shrink: 0;
+    padding: 5px 8px;
+    border: 1px solid var(--bs-border-color, #e5e7eb);
+    border-radius: 6px;
+    color: var(--bs-secondary-color, #6c757d);
+    font-size: 10px;
+    font-weight: 650;
+}
+.coverage-variance {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+    padding: 9px 11px;
+    border-radius: 8px;
+    background: var(--bs-tertiary-bg, #f8f9fa);
+    color: var(--bs-secondary-color, #6c757d);
+    font-size: 11px;
+}
+.coverage-variance strong {
+    color: var(--bs-emphasis-color, #212529);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+}
+.coverage-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--coverage-gap);
+}
+.coverage-charts-grid > .coverage-chart {
+    margin-bottom: var(--coverage-gap);
+}
+.coverage-table-section {
+    margin-top: 24px;
+}
+.coverage-table-heading {
+    align-items: center;
+    margin-bottom: 12px;
+}
+.coverage-table-count {
+    flex-shrink: 0;
+    padding: 5px 9px;
+    border-radius: 7px;
+    background: var(--bs-tertiary-bg, #f8f9fa);
+    color: var(--bs-secondary-color, #6c757d);
+    font-size: 10px;
+    font-weight: 650;
+}
+.coverage-section .coverage-table-box {
+    overflow-x: auto;
+    border: 1px solid var(--bs-border-color, #e5e7eb);
+    border-radius: var(--coverage-radius);
+}
+.coverage-section .coverage-table {
+    min-width: 850px;
+    font-size: 11.5px;
+}
+.coverage-section .coverage-table thead th {
+    padding: 11px 12px;
+    background: var(--bs-tertiary-bg, #f8f9fa);
+    color: var(--bs-secondary-color, #6c757d);
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--bs-border-color, #e5e7eb);
+}
+.coverage-section .coverage-table tbody td {
+    padding: 11px 12px;
+    vertical-align: middle;
+    border-color: var(--bs-border-color, #e5e7eb);
+}
+.coverage-topic {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 110px;
+}
+.coverage-topic b {
+    font-weight: 650;
+}
+.coverage-section .coverage-table .cluster-dot {
+    flex-shrink: 0;
+}
+.coverage-terms {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    min-width: 130px;
+    max-width: 290px;
+}
+.coverage-section .coverage-table .term-chip {
+    display: inline-block;
+    margin: 0;
+    padding: 3px 6px;
+    border: 1px solid var(--bs-border-color, #e5e7eb);
+    border-radius: 5px;
+    font-size: 10px;
+    line-height: 1.4;
+}
+.coverage-number {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+.coverage-document {
+    min-width: 150px;
+    max-width: 240px;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+}
+.coverage-statuses {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    min-width: 120px;
+}
+.coverage-statuses .badge {
+    padding: 4px 6px;
+    font-size: 9px;
+    font-weight: 600;
+    white-space: normal;
+    line-height: 1.35;
+}
+.coverage-footnote {
+    margin: 12px 2px 0;
+    color: var(--bs-secondary-color, #6c757d);
+    font-size: 11px;
+    line-height: 1.65;
+}
+.coverage-footnote strong {
+    color: var(--bs-emphasis-color, #212529);
+    font-weight: 650;
+}
+
+@media (max-width: 991.98px) {
+    .coverage-section .coverage-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .coverage-charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 575.98px) {
+    .coverage-section {
+        --coverage-gap: 12px;
+    }
+    .coverage-section-heading {
+        gap: 10px;
+    }
+    .coverage-intro {
+        max-width: 100%;
+    }
+    .coverage-k-badge {
+        gap: 7px;
+        padding: 7px 9px;
+    }
+    .coverage-k-badge span {
+        font-size: 10px;
+    }
+    .coverage-k-badge strong {
+        font-size: 18px;
+    }
+    .coverage-section .coverage-metrics {
+        gap: 8px;
+    }
+    .coverage-section .coverage-metrics .metric-card {
+        padding: 12px;
+    }
+    .coverage-section .coverage-metrics .metric-label {
+        font-size: 10px;
+    }
+    .coverage-section .coverage-metrics .metric-value {
+        font-size: 1.45rem;
+    }
+    .coverage-section .coverage-metrics .metric-sub {
+        font-size: 10px;
+    }
+    .coverage-section .coverage-chart {
+        padding: 13px;
+    }
+    .coverage-chart-heading {
+        align-items: flex-start;
+    }
+    .coverage-chart-description {
+        font-size: 11px;
+    }
+    .coverage-section-heading, .coverage-table-heading {
+        flex-wrap: wrap;
+    }
+    .coverage-variance {
+        align-items: flex-start;
+        font-size: 10px;
+    }
+}
+
+.segmentation-section {
+    --seg-border: var(--bs-border-color, #e5e7eb);
+    --seg-muted: #6b7280;
+    --seg-surface: var(--bs-body-bg, #ffffff);
+    --seg-soft: var(--bs-tertiary-bg, #f8fafc);
+
+    color: var(--bs-body-color, #1f2937);
+}
+.segmentation-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.segmentation-eyebrow {
+    display: inline-block;
+    margin-bottom: 0.4rem;
+    color: var(--seg-muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+.segmentation-header .section-title {
+    margin-bottom: 0.45rem;
+    font-weight: 750;
+    letter-spacing: -0.035em;
+}
+.segmentation-description, .panel-description {
+    margin: 0;
+    color: var(--seg-muted);
+    font-size: 0.875rem;
+    line-height: 1.55;
+}
+.segmentation-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.segmentation-metrics .metric-card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.15rem 1.25rem;
+    border: 1px solid var(--seg-border);
+    border-radius: 14px;
+    background: var(--seg-surface);
+    box-shadow: 0 2px 8px rgb(15 23 42 / 3%);
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.segmentation-metrics .metric-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 5px 16px rgb(15 23 42 / 6%);
+}
+.segmentation-metrics .metric-card.highlighted {
+    border-color: #bfdbfe;
+    background: linear-gradient(145deg, #eff6ff, #ffffff);
+}
+.segmentation-metrics .metric-label {
+    margin-bottom: 0.55rem;
+    color: var(--seg-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+.segmentation-metrics .metric-value {
+    display: block;
+    margin-bottom: 0.45rem;
+    font-size: clamp(1.45rem, 2vw, 2rem);
+    font-weight: 750;
+    line-height: 1.15;
+    letter-spacing: -0.045em;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+.segmentation-metrics .metric-value small {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0;
+}
+.segmentation-metrics .metric-sub {
+    color: var(--seg-muted);
+    font-size: 0.76rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+.segmentation-metrics .metric-value-range {
+    white-space: nowrap;
+    font-size: clamp(1.25rem, 1.8vw, 1.8rem);
+}
+.range-separator {
+    padding: 0 0.12rem;
+    color: var(--seg-muted);
+    font-weight: 400;
+}
+.segmentation-metrics .metric-card-danger {
+    border-color: #fecaca;
+}
+.segmentation-metrics .metric-card-danger .metric-label {
+    color: #b91c1c;
+}
+.segmentation-panel {
+    min-width: 0;
+    padding: 1.25rem;
+    border: 1px solid var(--seg-border);
+    border-radius: 14px;
+    background: var(--seg-surface);
+    box-shadow: 0 2px 8px rgb(15 23 42 / 3%);
+}
+.segmentation-histogram {
+    margin-bottom: 1rem;
+}
+.segmentation-panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.segmentation-panel .plot-title {
+    margin: 0 0 0.35rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+}
+.segmentation-panel .panel-description {
+    font-size: 0.8rem;
+}
+.segmentation-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.segmentation-charts-grid > .segmentation-panel {
+    min-width: 0;
+}
+.segmentation-panel .responsive-plot {
+    width: 100%;
+    min-width: 0;
+}
+.segmentation-panel .js-plotly-plot, .segmentation-panel .plot-container, .segmentation-panel .svg-container {
+    max-width: 100%;
+}
+.segmentation-table-panel {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+}
+.segmentation-table-note {
+    flex-shrink: 0;
+    padding: 0.35rem 0.6rem;
+    border: 1px solid var(--seg-border);
+    border-radius: 7px;
+    color: var(--seg-muted);
+    background: var(--seg-soft);
+    font-size: 0.72rem;
+}
+.segmentation-table {
+    width: 100%;
+    font-size: 0.84rem;
+}
+.segmentation-table thead th {
+    padding: 0.8rem 0.85rem;
+    border-bottom: 1px solid var(--seg-border);
+    background: var(--seg-soft);
+    color: var(--seg-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    white-space: nowrap;
+}
+.segmentation-table tbody td {
+    padding: 0.7rem 0.85rem;
+    border-bottom-color: var(--seg-border);
+    font-variant-numeric: tabular-nums;
+}
+.segmentation-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+.segmentation-table tbody td:first-child {
+    font-weight: 550;
+}
+.segmentation-table tbody tr:hover td {
+    background: var(--seg-soft);
+}
+.segmentation-doc-table {
+    min-width: 760px;
+}
+.segmentation-doc-name {
+    min-width: 180px;
+    max-width: 320px;
+    overflow-wrap: anywhere;
+    font-size: 0.8rem;
+}
+.segmentation-method-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--seg-border);
+    border-radius: 12px;
+    background: var(--seg-soft);
+}
+.method-note-icon {
+    display: inline-flex;
+    flex: 0 0 1.4rem;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 50%;
+    color: var(--seg-muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.segmentation-method-note p {
+    margin: 0;
+    color: var(--seg-muted);
+    font-size: 0.8rem;
+    line-height: 1.65;
+}
+.segmentation-method-note strong {
+    color: var(--bs-body-color, #1f2937);
+}
+@media (max-width: 991.98px) {
+    .segmentation-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.8rem;
+    }
+    .segmentation-charts-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .segmentation-panel {
+        padding: 1rem;
+    }
+}
+@media (max-width: 575.98px) {
+    .segmentation-header {
+        margin-bottom: 1rem;
+    }
+    .segmentation-metrics {
+        gap: 0.65rem;
+    }
+    .segmentation-metrics .metric-card {
+        padding: 0.9rem;
+        border-radius: 11px;
+    }
+    .segmentation-metrics .metric-label {
+        font-size: 0.72rem;
+    }
+    .segmentation-metrics .metric-value {
+        font-size: 1.4rem;
+    }
+    .segmentation-metrics .metric-value-range {
+        font-size: 1.1rem;
+    }
+    .segmentation-metrics .metric-sub {
+        font-size: 0.7rem;
+    }
+    .segmentation-panel {
+        padding: 0.85rem;
+        border-radius: 11px;
+    }
+    .segmentation-panel-header {
+        gap: 0.5rem;
+    }
+    .segmentation-table-note {
+        font-size: 0.65rem;
+    }
+    .segmentation-table {
+        font-size: 0.78rem;
+    }
+    .segmentation-table thead th, .segmentation-table tbody td {
+        padding: 0.65rem 0.7rem;
+    }
+    .segmentation-method-note {
+        padding: 0.85rem;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .segmentation-metrics .metric-card {
+        transition: none;
+    }
+}
