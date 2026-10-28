@@ -1,0 +1,509 @@
+{% extends "layout.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="/static/css/content.css">    
+    <link rel="stylesheet" href="/static/css/groupOne.css">
+{% endblock %}
+
+{% block contents %}
+
+    {% macro pct(v) %}{{ "—" if v is none else ("%.1f"|format(v * 100) ~ "%") }}{% endmacro %}
+    {% set cov = results.copertura %}
+    {% set cs = cov.summary %}
+    {% set red = results.ridondanza %}
+    {% set rm = red.metrics %}
+    {% set coe = results.coerenza %}
+    {% set analyzed_share = (results.summary.n_analyzed / results.summary.n_chunks * 100) if results.summary.n_chunks else 0 %}
+    
+    <div class="dashboard-container text-start report-dashboard">
+
+        <header class="report-top" style="margin-top: 20px;">
+            <div class="report-heading">
+                <div class="report-eyebrow"><span class="report-eyebrow-dot" aria-hidden="true"></span>DATA QUALITY REPORT · CONTENUTO</div>
+                <h1>Copertura, ridondanza e coerenza</h1>
+                <p>Quanto la Base copre i propri temi, quanto contenuto è duplicato e se i documenti si contraddicono tra loro.</p>
+                <div class="report-parameters" aria-label="Parametri dell’analisi">
+                    <span class="report-parameter">Soglia copertura <code>{{ "%.1f"|format(cs.threshold * 100) }}%</code></span>
+                    <span class="report-parameter">Soglia ridondanza <code>{{ "%.2f"|format(results.params.threshold) }}</code></span>
+                    <span class="report-parameter">Soglia candidati <code>{{ "%.2f"|format(results.params.cand_threshold) }}</code></span>
+                </div>
+            </div>
+ 
+            <aside class="report-meta" aria-label="Configurazione dell’analisi">
+                <div class="report-meta-item"><span>Modello embedding</span><strong>{{ results.params.model }}</strong></div>
+                <div class="report-meta-item"><span>Tempo di calcolo</span><strong>{{ results.summary.seconds }} s</strong></div>
+                <div class="report-meta-item"><span>Tipologia di chunking</span><strong>{{ results.params.path }}</strong></div>
+                <div class="report-meta-item"><span>Giudice LLM</span><strong>{{ results.params.judge or "Non utilizzato" }}</strong></div>
+            </aside>
+        </header>
+
+        <section class="report-section" aria-labelledby="report-overview-title" style="margin-top: 20px;">
+            <div class="report-section-heading">
+                <div>
+                    <span class="report-overline">PANORAMICA</span>
+                    <h2 id="report-overview-title">Risultati dell’analisi</h2>
+                </div>
+                <span class="report-section-note">{{ results.summary.n_documents }} documenti nel corpus</span>
+            </div>
+ 
+            <div class="report-overview">
+
+                <article class="report-hero-metric">
+                    <div class="report-card-top">
+                        <span class="report-icon report-icon-violet" aria-hidden="true"><i class="bi bi-bullseye"></i></span>
+                        <span class="report-status-neutral">Copertura tematica</span>
+                    </div>
+                    <h3 class="report-metric-caption">{{ "Argomenti attesi coperti" if cov.topics else "Aree sufficientemente coperte" }}</h3>
+                    <div class="report-primary-reading">
+                        {% if cov.topics %}
+                            <span class="report-hero-value">{{ "%.1f"|format(cov.topics.cp_kb * 100) }}<small>%</small></span>
+                            <span class="report-reading-note">{{ cov.topics.n_covered }} / {{ cov.topics.n_expected }}<br>argomenti attesi</span>
+                        {% else %}
+                            <span class="report-hero-value">{{ cs.k - cs.n_under }}<small> / {{ cs.k }}</small></span>
+                            <span class="report-reading-note">aree sopra la<br>soglia di copertura</span>
+                        {% endif %}
+                    </div>
+                    <p class="report-metric-description">Cp(a) = chunk dell’area / chunk analizzati. Un’area sotto soglia è un potenziale buco.</p>
+                    <div class="report-card-detail"><span>Aree sottorappresentate</span><strong>{{ cs.n_under }}</strong></div>
+                </article>
+ 
+                <article class="report-hero-metric">
+                    <div class="report-card-top">
+                        <span class="report-icon report-icon-blue" aria-hidden="true"><i class="bi bi-diagram-3"></i></span>
+                        <span class="report-status-neutral">Ridondanza</span>
+                    </div>
+                    <h3 class="report-metric-caption">R · chunk in gruppi di duplicati</h3>
+                    <div class="report-primary-reading">
+                        <span class="report-hero-value">{{ "%.1f"|format(red.R * 100) }}<small>%</small></span>
+                        <span class="report-reading-note">{{ rm.redundant_chunks }} chunk<br>in {{ rm.n_groups }} gruppi</span>
+                    </div>
+                    <p class="report-metric-description">R = chunk in gruppi di almeno 2 / chunk analizzati. 0% = base pulita.</p>
+                    <div class="report-card-detail"><span>Gruppo più grande</span><strong>{{ rm.max_group_size }} chunk</strong></div>
+                </article>
+ 
+                <article class="report-hero-metric" id="coe-hero">
+                    <div class="report-card-top">
+                        <span class="report-icon report-icon-amber" aria-hidden="true"><i class="bi bi-shuffle"></i></span>
+                        <span class="report-status-neutral">Coerenza informativa</span>
+                    </div>
+                    <h3 class="report-metric-caption">Coerenza = 1 - C</h3>
+                    <div class="report-primary-reading">
+                        <span class="report-hero-value" id="coe-value">{{ pct(coe.coerenza) if coe.evaluated else "—" }}</span>
+                        <span class="report-reading-note" id="coe-note">
+                            {% if coe.evaluated %}{{ coe.n_contradictions }} / {{ coe.n_judged }}<br>coppie contraddittorie
+                            {% elif job_id %}in attesa<br>del giudice LLM
+                            {% else %}non valutata<br>(nessun giudice LLM)
+                            {% endif %}
+                        </span>
+                    </div>
+                    <p class="report-metric-description">C = coppie contraddittorie / coppie giudicate. 100% = nessuna contraddizione tra i candidati.</p>
+                    <div class="report-card-detail"><span>C sui chunk</span><strong id="coe-cchunks">{{ pct(coe.C_chunks) if coe.evaluated else "—" }}</strong></div>
+                </article>
+            </div>
+ 
+            <div class="report-metrics-grid">
+                <article class="report-stat-card">
+                    <div class="report-stat-heading">
+                        <span class="report-icon report-icon-slate" aria-hidden="true"><i class="bi bi-files"></i></span>
+                        <h3 class="report-stat-label">Chunk analizzati</h3>
+                    </div>
+                    <div class="report-stat-value">{{ results.summary.n_analyzed }} <small>/ {{ results.summary.n_chunks }}</small></div>
+                    <div class="report-volume-track" role="progressbar" aria-label="Quota di chunk analizzati" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ '%.0f'|format(analyzed_share) }}">
+                        <div class="report-volume-fill" data-width="{{ '%.1f'|format(analyzed_share) }}"></div>
+                    </div>
+                    <div class="report-stat-footer"><span>Frammenti esclusi</span><strong>{{ results.summary.n_fragments }}</strong></div>
+                </article>
+ 
+                <article class="report-stat-card">
+                    <div class="report-stat-heading">
+                        <span class="report-icon report-icon-slate" aria-hidden="true"><i class="bi bi-arrow-left-right"></i></span>
+                        <h3 class="report-stat-label">Ridondanza tra documenti</h3>
+                    </div>
+                    <div class="report-stat-value">{{ rm.pairs_cross_doc }}</div>
+                    <div class="report-stat-footer"><span>Coppie sopra soglia in documenti diversi</span></div>
+                </article>
+ 
+                <article class="report-stat-card report-stat-candidates">
+                    <div class="report-stat-heading">
+                        <span class="report-icon report-icon-amber" aria-hidden="true"><i class="bi bi-exclamation-diamond"></i></span>
+                        <h3 class="report-stat-label">Coppie candidate</h3>
+                    </div>
+                    <div class="report-stat-value">{{ coe.metrics.candidate_pairs }}</div>
+                    <div class="report-stat-footer">
+                        <span>Su {{ coe.metrics.n_valid_pairs }} coppie valide</span>
+                        <strong>{{ coe.metrics.candidate_numeric_diff }} con numeri diversi</strong>
+                    </div>
+                </article>
+ 
+                {% if job_id %}
+                    <article class="report-stat-card report-judge-card metric-card llm-card" id="kpi-llm" aria-label="Avanzamento del giudice LLM">
+                        <div class="report-stat-heading">
+                            <span class="report-icon report-icon-blue" aria-hidden="true"><i class="bi bi-robot"></i></span>
+                            <h3 class="report-stat-label">Verifica con giudice LLM</h3>
+                        </div>
+                        <div class="report-stat-value" id="llm-progress" aria-live="polite">0 / {{ coe.metrics.to_judge }}</div>
+                        <div class="report-stat-footer"><span id="llm-sub">In attesa…</span></div>
+                        <div class="llm-bar report-judge-progress" aria-hidden="true"><i id="llm-bar"></i></div>
+                    </article>
+                {% endif %}
+            </div>
+        </section>
+        
+        <section class="mb-5 latent-section">
+            <div class="report-section-heading">
+                <div><span class="report-overline">MAPPA DEI CONTENUTI</span><h2 class="section-title">Spazio latente (PCA 3D)</h2></div>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Colorazione dei punti">
+                    <button type="button" class="btn btn-outline-secondary active" data-colorby="doc">Per documento</button>
+                    <button type="button" class="btn btn-outline-secondary" data-colorby="cluster">Per area tematica</button>
+                </div>
+            </div>
+ 
+            <div class="chart-container-box">
+                <div class="latent-toolbar">
+                    <div class="chart-legend">
+                        <span class="legend-item"><span class="fragment-symbol" aria-hidden="true">✕</span> Frammenti esclusi</span>
+                        <span class="legend-item"><i class="line line-black" aria-hidden="true"></i> Quasi-duplicati</span>
+                        <span class="legend-item"><i class="line line-dash" aria-hidden="true"></i> Coppie candidate</span>
+                        <span class="legend-item"><i class="line line-red" aria-hidden="true"></i> Contraddizioni</span>
+                    </div>
+                    <div class="pca-info">
+                        <span class="pca-info-label">Varianza spiegata</span>
+                        <strong>{{ "%.0f"|format(results.summary.var3 * 100) }}%</strong>
+                        <span class="pca-info-detail">nelle prime 3 componenti</span>
+                    </div>
+                </div>
+ 
+                <div id="plot" class="responsive-plot"></div>
+ 
+                <div class="latent-footer">
+                    <span class="latent-footer-label">Giudizi sulle coppie</span>
+                    <div class="tags-legend">
+                        <span class="badge tag-contraddizione">Contraddizione</span>
+                        <span class="badge tag-complementare">Complementare</span>
+                        <span class="badge tag-equivalente">Equivalente</span>
+                        <span class="badge tag-non-giudicata">Non giudicata</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <section class="coverage-section mb-5">
+            <div class="coverage-section-heading">
+                <div>
+                    <span class="coverage-eyebrow">1 · COPERTURA TEMATICA</span>
+                    <h2 class="section-title">Ogni area è sufficientemente coperta?</h2>
+                    <p class="coverage-intro">Le aree sono i cluster dello spazio semantico; l’area è coperta se contiene almeno il {{ "%.1f"|format(cs.threshold * 100) }}% dei chunk analizzati.</p>
+                </div>
+                <div class="coverage-k-badge"><span>Aree</span> <strong>{{ cs.k }}</strong></div>
+            </div>
+ 
+            <div class="metrics-grid coverage-metrics">
+                <div class="metric-card highlighted">
+                    <span class="metric-label">Aree individuate</span>
+                    <span class="metric-value" style="color: aliceblue;">{{ cs.k }}</span>
+                    <span class="metric-sub">{{ "Scelto automaticamente con silhouette" if cs.auto else "Impostato manualmente · ottimo automatico: " ~ cs.k_auto }}</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Silhouette</span>
+                    <span class="metric-value">{{ "%.3f"|format(cs.silhouette) }}</span>
+                    <span class="metric-sub">Separazione delle aree · da -1 a 1</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Equilibrio</span>
+                    <span class="metric-value">{{ "%.2f"|format(cs.balance) }}</span>
+                    <span class="metric-sub">Entropia normalizzata · 1 = uniforme</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Densità media</span>
+                    <span class="metric-value">{{ "%.3f"|format(cs.mean_density) }}</span>
+                    <span class="metric-sub">Similarità chunk-centroide</span>
+                </div>
+                <div class="metric-card {{ 'metric-card-danger' if cs.n_under }}">
+                    <span class="metric-label">Aree sottorappresentate</span>
+                    <span class="metric-value {{ 'text-danger' if cs.n_under }}">{{ cs.n_under }}</span>
+                    <span class="metric-sub">Cp sotto la soglia di {{ "%.1f"|format(cs.threshold * 100) }}%</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Aree con fonte unica</span>
+                    <span class="metric-value {{ 'text-danger' if cs.n_single_doc }}">{{ cs.n_single_doc }}</span>
+                    <span class="metric-sub">Presenti in un solo documento</span>
+                </div>
+            </div>
+ 
+            <div class="coverage-table-section">
+                <div class="coverage-table-heading">
+                    <div>
+                        <h3 class="plot-title">Tabella per area tematica</h3>
+                        <p class="coverage-chart-description">#chunk, percentuale sul totale, densità del cluster e stato di copertura.</p>
+                    </div>
+                    <span class="coverage-table-count">{{ cov.areas|length }} aree</span>
+                </div>
+ 
+                <div class="table-responsive custom-table-box coverage-table-box">
+                    <table class="table table-hover align-middle m-0 coverage-table">
+                        <thead>
+                            <tr>
+                                <th>Area</th><th>Termini caratteristici</th><th>Chunk</th><th>Cp</th>
+                                <th>Densità</th><th>Doc.</th><th>Documento principale</th><th>Stato</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for r in cov.areas %}
+                            <tr>
+                                <td><div class="coverage-topic"><i class="dot cluster-dot" data-cluster="{{ r.cluster }}"></i><b>{{ r.name }}</b></div></td>
+                                <td>
+                                    <div class="coverage-terms">
+                                        {% for t in r.terms %}<span class="term-chip">{{ t }}</span>{% else %}<span class="text-muted">—</span>{% endfor %}
+                                    </div>
+                                </td>
+                                <td class="coverage-number">{{ r.size }}</td>
+                                <td class="coverage-number">{{ "%.1f"|format(r.share * 100) }}%</td>
+                                <td class="coverage-number">{{ "%.3f"|format(r.density) }}</td>
+                                <td class="coverage-number">{{ r.n_docs }}</td>
+                                <td class="coverage-document">{{ r.top_doc }} <span class="text-muted">({{ "%.0f"|format(r.top_doc_share * 100) }}%)</span></td>
+                                <td>
+                                    <div class="coverage-statuses">
+                                        {% if r.status == "coperta" %}
+                                            <span class="badge bg-success-soft text-success">Coperta</span>
+                                        {% else %}
+                                            <span class="badge bg-danger-soft text-danger">Sottorappresentata</span>
+                                        {% endif %}
+                                        {% if r.single_doc %}<span class="badge bg-secondary-soft text-secondary">Fonte unica</span>{% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+ 
+            {% if cov.under %}
+                <div class="coverage-table-section mt-4">
+                    <h3 class="plot-title">Aree sottorappresentate</h3>
+                    <ul class="mb-0">
+                        {% for r in cov.under %}
+                            <li><b>{{ r.name }}</b> · {{ "%.1f"|format(r.share * 100) }}% dei chunk ({{ r.size }}){% if r.terms %} · {{ r.terms[:3]|join(", ") }}{% endif %}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+ 
+            {% if cov.topics %}
+                <div class="coverage-table-section mt-4">
+                    <div class="coverage-table-heading">
+                        <div>
+                            <h3 class="plot-title">Argomenti attesi</h3>
+                            <p class="coverage-chart-description">Cp(a) = argomenti attesi presenti / argomenti attesi (presente se coseno ≥ {{ "%.2f"|format(cov.topics.topic_threshold) }}).</p>
+                        </div>
+                        <span class="coverage-table-count">Cp(kb) {{ "%.1f"|format(cov.topics.cp_kb * 100) }}%</span>
+                    </div>
+                    <div class="table-responsive custom-table-box coverage-table-box">
+                        <table class="table align-middle m-0 coverage-table">
+                            <thead><tr><th>Area</th><th>Attesi</th><th>Coperti</th><th>Cp</th></tr></thead>
+                            <tbody>
+                                {% for area, e in cov.topics.per_area.items() %}
+                                <tr>
+                                    <td>{{ area }}</td>
+                                    <td class="coverage-number">{{ e.expected }}</td>
+                                    <td class="coverage-number">{{ e.covered }}</td>
+                                    <td class="coverage-number">{{ "%.0f"|format(e.cp * 100) }}%</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if cov.topics.missing %}
+                    <h4 class="plot-title mt-3">Argomenti mancanti</h4>
+                    <ul class="mb-0">
+                        {% for m in cov.topics.missing %}
+                            <li><b>{{ m.area }}</b> · {{ m.topic }} <span class="text-muted">(chunk più vicino {{ m.best_chunk }}, coseno {{ "%.2f"|format(m.best_sim) }})</span></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p class="coverage-footnote"><strong>Come leggere i risultati.</strong> Senza un elenco di argomenti attesi la copertura descrive la forma della distribuzione (quota, densità, fonti), non l’assenza assoluta di argomenti. Per individuare lacune reali, inserisci gli argomenti attesi nelle opzioni avanzate.</p>
+            {% endif %}
+ 
+            <div class="coverage-charts-grid mt-4">
+                <div class="chart-container-box coverage-chart">
+                    <div class="coverage-chart-heading"><div><h3 class="plot-title">Chunk per area</h3><p class="coverage-chart-description">La linea tratteggiata è la soglia di copertura.</p></div></div>
+                    <div id="plot-sizes" class="responsive-plot h-md" data-min="{{ cs.threshold * cs.n_analyzed }}"></div>
+                </div>
+                <div class="chart-container-box coverage-chart">
+                    <div class="coverage-chart-heading"><div><h3 class="plot-title">Scelta del numero di aree</h3><p class="coverage-chart-description">Silhouette per ogni k candidato.</p></div></div>
+                    <div id="plot-kscan" class="responsive-plot h-md"></div>
+                </div>
+            </div>
+ 
+            <div class="chart-container-box coverage-chart">
+                <div class="coverage-chart-heading"><div><h3 class="plot-title">Aree per documento</h3><p class="coverage-chart-description">Relazione tra fonti documentali e aree tematiche.</p></div></div>
+                <div id="plot-heat" class="responsive-plot h-md"></div>
+            </div>
+        </section>
+ 
+        <section class="mb-5 threshold-section">
+            <div class="report-section-heading">
+                <div>
+                    <span class="report-overline">2 · RIDONDANZA</span>
+                    <h2 class="section-title">Ci sono contenuti duplicati?</h2>
+                    <p class="threshold-description">R al variare della soglia di similarità coseno. Con la soglia selezionata i chunk in gruppi di quasi-duplicati sono il {{ "%.1f"|format(red.R * 100) }}% di quelli analizzati.</p>
+                </div>
+                <span class="threshold-current">Soglia selezionata <strong>{{ "%.2f"|format(results.params.threshold) }}</strong></span>
+            </div>
+ 
+            <div class="threshold-grid">
+                {% for r in red.sweep %}
+                    {% set active = (r.threshold - results.params.threshold)|abs < 0.000001 %}
+                    <article class="threshold-card {{ 'threshold-active' if active else '' }}" aria-label="Risultati con soglia {{ r.threshold }}">
+                        <header class="threshold-card-header">
+                            <div>
+                                <span class="threshold-card-label">Soglia coseno</span>
+                                <h3 class="threshold-number">{{ "%.2f"|format(r.threshold) }}</h3>
+                            </div>
+                            {% if active %}<span class="badge threshold-active-badge"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Attiva</span>{% endif %}
+                        </header>
+                        <div class="threshold-main-metric">
+                            <span class="threshold-rate">{{ "%.1f"|format(r.redundant_chunk_share * 100) }}<small>%</small></span>
+                            <span class="threshold-rate-label">R · chunk ridondanti</span>
+                        </div>
+                        <dl class="threshold-details">
+                            <div><dt>Chunk nei gruppi</dt><dd>{{ r.redundant_chunks }}</dd></div>
+                            <div><dt>Gruppi individuati</dt><dd>{{ r.n_groups }}</dd></div>
+                            <div><dt>Gruppo più grande</dt><dd>{{ r.max_group_size }} chunk</dd></div>
+                            <div><dt>Coppie tra documenti</dt><dd>{{ r.pairs_cross_doc }}</dd></div>
+                        </dl>
+                    </article>
+                {% else %}
+                    <p class="threshold-empty">Nessun risultato disponibile per il confronto delle soglie.</p>
+                {% endfor %}
+            </div>
+ 
+            <div class="chart-container-box mt-4">
+                <div class="coverage-chart-heading"><div><h3 class="plot-title">Calibrazione delle soglie</h3><p class="coverage-chart-description">Similarità con il chunk più simile (escluso lo stesso documento adiacente).</p></div></div>
+                <div id="plot-nn" class="responsive-plot h-md" data-thr="{{ results.params.threshold }}" data-cand="{{ results.params.cand_threshold }}"></div>
+            </div>
+ 
+            <div class="mt-4 duplicate-groups">
+                <h3 class="plot-title">Gruppi di duplicati</h3>
+
+                {% for g in red.groups %}
+                    <details class="mb-2 duplicate-group">
+                        <summary><b>Gruppo {{ loop.index }}</b> · {{ g.size }} chunk</summary>
+                        <ul class="small mb-2">
+                            {% for m in g.members %}
+                                <li><code>{{ m.id }}</code><span class="text-muted">({{ m.doc }})</span> · {{ m.text }}</li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                {% else %}
+                    <p class="threshold-empty">Nessun gruppo di quasi-duplicati alla soglia selezionata.</p>
+                {% endfor %}
+            </div>
+        </section>
+ 
+        <section class="mb-5 candidate-section">
+            <div class="report-section-heading candidate-section-heading">
+                <div>
+                    <span class="report-overline">3 · COERENZA INFORMATIVA</span>
+                    <h2 class="section-title">I contenuti si contraddicono?</h2>
+                    <p class="threshold-description">Le coppie con coseno ≥ {{ "%.2f"|format(results.params.cand_threshold) }} sono classificate dal giudice LLM. C è calcolato sulle sole coppie giudicate ({{ coe.metrics.to_judge }} su {{ coe.metrics.candidate_pairs }} candidate).</p>
+                </div>
+                <span class="candidate-total">{{ coe.candidates|length }} coppie</span>
+            </div>
+ 
+            <div class="metrics-grid coverage-metrics">
+                <div class="metric-card highlighted">
+                    <span class="metric-label">Coerenza (1 - C)</span>
+                    <span class="metric-value" style="color: aliceblue;" id="coe-value-2">{{ pct(coe.coerenza) if coe.evaluated else "—" }}</span>
+                    <span class="metric-sub">Calcolata sulle coppie</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">C sulle coppie</span>
+                    <span class="metric-value" id="coe-cpairs">{{ pct(coe.C_pairs) if coe.evaluated else "—" }}</span>
+                    <span class="metric-sub">Contraddittorie / giudicate</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Contraddizioni</span>
+                    <span class="metric-value" id="coe-n">{{ (coe.n_contradictions ~ " / " ~ coe.n_judged) if coe.evaluated else "—" }}</span>
+                    <span class="metric-sub">Coppie contraddittorie su giudicate</span>
+                </div>
+            </div>
+ 
+            <div class="mt-4">
+                <h3 class="plot-title">Conflitti rilevati</h3>
+                <div id="conflicts-list">
+                    <p class="threshold-empty" id="conflicts-empty">
+                        {% if coe.evaluated %}Nessuna contraddizione rilevata.
+                        {% elif job_id %}I conflitti compaiono al termine del giudizio.
+                        {% else %}Nessun giudice LLM selezionato: i conflitti non sono stati valutati.{% endif %}
+                    </p>
+                </div>
+            </div>
+ 
+            <h3 class="plot-title mt-4">Coppie candidate</h3>
+            <div class="candidate-search">
+                <div class="candidate-search-field">
+                    <i class="bi bi-search" aria-hidden="true"></i>
+                    <input type="search" id="candidate-search-input" placeholder="Cerca nei testi, negli ID o nei giudizi..." autocomplete="off" aria-label="Filtra le coppie candidate">
+                    <button type="button" id="candidate-search-clear" class="candidate-search-clear" aria-label="Cancella ricerca" hidden>&times;</button>
+                </div>
+                <div class="candidate-search-footer">
+                    <span id="candidate-search-count" aria-live="polite">{{ coe.candidates|length }} coppie candidate</span>
+                    <span>La ricerca si aggiorna mentre scrivi</span>
+                </div>
+            </div>
+ 
+            <div class="candidates-list">
+                {% for p in coe.candidates %}
+                    <article class="candidate-card" data-key="{{ p.key }}">
+                        <div class="candidate-header d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+                            <div class="candidate-meta">
+                                <span class="candidate-similarity"><span class="candidate-meta-label">Similarità</span> <strong>{{ "%.3f"|format(p.sim) }}</strong></span>
+                                <span class="badge candidate-flag {{ 'bg-success-soft text-success' if p.cross_doc else 'bg-light text-muted' }}">
+                                    <i class="bi bi-files"></i> {% if p.cross_doc %}Documenti diversi{% else %}Stesso documento{% endif %}</span>
+                                <span class="badge candidate-flag {{ 'bg-danger-soft text-danger' if p.numeric_diff else 'bg-light text-muted' }}">
+                                    <i class="bi bi-123"></i> {% if p.numeric_diff %}Numeri diversi{% else %}Nessuna differenza numerica rilevata{% endif %}</span>
+                            </div>
+                            <div class="rel-slot">
+                                {% if job_id and p.to_judge %}
+                                    <span class="badge bg-secondary-soft text-secondary"><span class="candidate-pulse"></span>In attesa del giudice</span>
+                                {% else %}
+                                    <span class="badge bg-secondary-soft text-secondary">— Nessun giudizio</span>
+                                {% endif %}
+                            </div>
+                        </div>
+ 
+                        <div class="row g-3 candidate-texts">
+                            <div class="col-md-6 border-end-md">
+                                <div class="chunk-box candidate-chunk candidate-chunk-a">
+                                    <div class="chunk-heading"><span class="chunk-letter">A</span><span class="chunk-title">Testo A</span><span class="chunk-id">{{ p.a }}</span></div>
+                                    <p class="chunk-text">{{ p.ta }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="chunk-box candidate-chunk candidate-chunk-b">
+                                    <div class="chunk-heading"><span class="chunk-letter">B</span><span class="chunk-title">Testo B</span><span class="chunk-id">{{ p.b }}</span></div>
+                                    <p class="chunk-text">{{ p.tb }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="explanation-box mt-3" hidden></div>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+ 
+    <script type="application/json" id="plot-data">{{ results.plot | tojson }}</script>
+    <script type="application/json" id="red-data">{{ {"nn": red.nn} | tojson }}</script>
+    <script type="application/json" id="job-data">{{ {"job_id": job_id} | tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <script src="/static/js/contents.js"></script>
+    <script src="/static/js/search.js"></script>
+{% endblock %}
+

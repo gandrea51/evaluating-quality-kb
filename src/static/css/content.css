@@ -1,0 +1,699 @@
+/* ==========================================================================
+   Report Dashboard - Container & Header Top
+   ========================================================================== */
+.report-dashboard {
+    width: 100%;
+    color: #f8fafc;
+    margin-bottom: 2.5rem;
+}
+
+/* Header a due colonne (Info Principali a SX, Metadati Tecnici a DX) */
+.report-top {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2.5rem;
+    background: linear-gradient(145deg, rgba(17, 24, 39, 0.75) 0%, rgba(11, 15, 25, 0.85) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.65), 
+                0 0 35px -10px rgba(59, 130, 246, 0.12);
+}
+
+@media (min-width: 992px) {
+    .report-top {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+}
+
+/* ==========================================================================
+   Colonna Sinistra: Heading, Titolo e Parametri
+   ========================================================================== */
+.report-heading {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Eyebrow con dot pulsante azzurro/blu */
+.report-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #38bdf8;
+    margin-bottom: 0.85rem;
+}
+
+.report-eyebrow-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #38bdf8;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #38bdf8;
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Titolo H1 */
+.report-heading h1 {
+    font-size: clamp(1.8rem, 2.5vw + 1rem, 2.6rem);
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 0.85rem;
+}
+
+/* Descrizione del report */
+.report-heading p {
+    font-size: 1.02rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    max-width: 700px;
+    margin-bottom: 1.5rem;
+}
+
+/* Contenitore delle Pillole Parametri */
+.report-parameters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+/* Singola pillola parametro */
+.report-parameter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    font-size: 0.84rem;
+    font-weight: 500;
+    padding: 0.35rem 0.85rem;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.report-parameter:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(59, 130, 246, 0.4);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* Valore numerico all'interno del parametro */
+.report-parameter code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #60a5fa;
+    background: rgba(59, 130, 246, 0.15);
+    padding: 0.1rem 0.45rem;
+    border-radius: 6px;
+}
+
+/* ==========================================================================
+   Colonna Destra: Scheda Metadati Tecnici (Aside)
+   ========================================================================== */
+.report-meta {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    min-width: 290px;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+@media (min-width: 576px) and (max-width: 991px) {
+    .report-meta {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.report-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+/* Etichetta del metadato */
+.report-meta-item span {
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #64748b;
+}
+
+/* Valore del metadato */
+.report-meta-item strong {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    word-break: break-all;
+}
+/* ==========================================================================
+   Report Section - Panoramica & Risultati
+   ========================================================================== */
+.report-section {
+    margin-bottom: 3rem;
+}
+
+.report-section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.report-overline {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #38bdf8;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.report-section-heading h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #f8fafc;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.report-section-note {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+}
+
+/* ==========================================================================
+   Hero Metrics: Le 3 Card Principali (Copertura, Ridondanza, Coerenza)
+   ========================================================================== */
+.report-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.report-hero-metric {
+    background: linear-gradient(145deg, rgba(17, 24, 39, 0.75) 0%, rgba(11, 15, 25, 0.85) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.report-hero-metric:hover {
+    transform: translateY(-3px);
+    border-color: rgba(59, 130, 246, 0.35);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 20px -5px rgba(59, 130, 246, 0.15);
+}
+
+.report-card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.85rem;
+}
+
+.report-status-neutral {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.report-metric-caption {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 1.25rem;
+    line-height: 1.35;
+}
+
+/* Valore Numerico Gigante e Nota di Lettura */
+.report-primary-reading {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.report-hero-value {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.report-hero-value small {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.report-reading-note {
+    font-size: 0.82rem;
+    line-height: 1.35;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.report-metric-description {
+    font-size: 0.82rem;
+    color: #64748b;
+    line-height: 1.5;
+    margin-top: auto;
+    margin-bottom: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.report-card-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.6rem 0.85rem;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.report-card-detail span {
+    color: #94a3b8;
+}
+
+.report-card-detail strong {
+    color: #f8fafc;
+    font-family: ui-monospace, monospace;
+}
+
+/* ==========================================================================
+   Icone Con Accenti Cromatici
+   ========================================================================== */
+.report-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+}
+
+.report-icon-violet {
+    background: rgba(168, 85, 247, 0.15);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.report-icon-blue {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.report-icon-amber {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.report-icon-slate {
+    background: rgba(148, 163, 184, 0.15);
+    color: #cbd5e1;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+/* ==========================================================================
+   Griglia Statistiche Secondarie (.report-metrics-grid)
+   ========================================================================== */
+.report-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+}
+
+.report-stat-card {
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 1.35rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.report-stat-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+}
+
+.report-stat-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.85rem;
+}
+
+.report-stat-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.report-stat-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.65rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.report-stat-value small {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.report-stat-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.78rem;
+    color: #64748b;
+    margin-top: auto;
+}
+
+.report-stat-footer strong {
+    color: #cbd5e1;
+}
+
+/* Barra Quota Chunk Analizzati */
+.report-volume-track {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 9999px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+}
+
+.report-volume-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #38bdf8);
+    border-radius: 9999px;
+    transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ==========================================================================
+   Card Avanzamento Giudice LLM (#kpi-llm)
+   ========================================================================== */
+.report-judge-card {
+    border-color: rgba(59, 130, 246, 0.25);
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 58, 138, 0.2) 100%);
+}
+
+.report-judge-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.report-judge-progress i {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: #3b82f6;
+    box-shadow: 0 0 10px #3b82f6;
+    transition: width 0.3s ease;
+}
+
+/* Stati Dinamici aggiunti dal JavaScript */
+.report-judge-card.done {
+    border-color: rgba(34, 197, 94, 0.4);
+}
+
+.report-judge-card.done .report-judge-progress i {
+    background: #22c55e;
+    box-shadow: 0 0 10px #22c55e;
+}
+
+.report-judge-card.error {
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.report-judge-card.error .report-judge-progress i {
+    background: #ef4444;
+    box-shadow: 0 0 10px #ef4444;
+}
+/* ==========================================================================
+   Sezione Mappa dei Contenuti - Spazio Latente (PCA 3D)
+   ========================================================================== */
+.latent-section {
+    margin-bottom: 3.5rem;
+}
+
+/* Pulsanti Toggle (Per documento / Per area tematica) */
+.latent-section .btn-group {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 3px;
+    gap: 3px;
+}
+
+.latent-section .btn-group .btn {
+    border: none;
+    color: #94a3b8;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 8px !important;
+    padding: 0.4rem 0.85rem;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+.latent-section .btn-group .btn:hover {
+    color: #f8fafc;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.latent-section .btn-group .btn.active {
+    color: #ffffff !important;
+    background: #2563eb !important;
+    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.35);
+}
+
+/* ==========================================================================
+   Box Grafico Plotly 3D (.chart-container-box)
+   ========================================================================== */
+.chart-container-box {
+    background: linear-gradient(145deg, rgba(17, 24, 39, 0.85) 0%, rgba(10, 15, 26, 0.95) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.65),
+                0 0 30px -5px rgba(59, 130, 246, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Toolbar Superiore (Legenda linee & Box Varianza) */
+.latent-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    font-size: 0.82rem;
+    color: #94a3b8;
+}
+
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    white-space: nowrap;
+}
+
+/* Simboli Legenda */
+.fragment-symbol {
+    color: #94a3b8;
+    font-weight: 800;
+    font-size: 0.85rem;
+}
+
+.legend-item .line {
+    display: inline-block;
+    width: 18px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+.legend-item .line-black {
+    background: #dc2626; /* Quasi-duplicati (rosso vivo per contrasto dark) */
+    box-shadow: 0 0 6px rgba(220, 38, 38, 0.5);
+}
+
+.legend-item .line-dash {
+    background: repeating-linear-gradient(90deg, #f59e0b 0, #f59e0b 4px, transparent 4px, transparent 8px);
+}
+
+.legend-item .line-red {
+    background: #ef4444;
+    box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+}
+
+/* Box Varianza Spiegata */
+.pca-info {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    padding: 0.35rem 0.8rem;
+    border-radius: 10px;
+    font-size: 0.82rem;
+}
+
+.pca-info-label {
+    color: #93c5fd;
+    font-weight: 500;
+}
+
+.pca-info strong {
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-family: ui-monospace, monospace;
+}
+
+.pca-info-detail {
+    color: #64748b;
+    font-size: 0.75rem;
+}
+
+/* ==========================================================================
+   Plot Canvas 3D
+   ========================================================================== */
+.responsive-plot {
+    width: 100%;
+    min-height: 520px;
+    height: 560px;
+    margin: 0.5rem 0;
+}
+
+/* ==========================================================================
+   Footer Mappa & Badges dei Giudizi
+   ========================================================================== */
+.latent-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.latent-footer-label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64748b;
+}
+
+.tags-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Badge con colori allineati alla mappa relazionale */
+.tags-legend .badge {
+    font-size: 0.76rem;
+    font-weight: 600;
+    padding: 0.35rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+}
+
+.tag-contraddizione {
+    background: rgba(239, 68, 68, 0.15) !important;
+    color: #f87171 !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+.tag-complementare {
+    background: rgba(34, 197, 94, 0.15) !important;
+    color: #4ade80 !important;
+    border-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+.tag-equivalente {
+    background: rgba(59, 130, 246, 0.15) !important;
+    color: #60a5fa !important;
+    border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+.tag-non-giudicata {
+    background: rgba(245, 158, 11, 0.15) !important;
+    color: #fbbf24 !important;
+    border-color: rgba(245, 158, 11, 0.3) !important;
+}

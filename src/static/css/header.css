@@ -1,0 +1,423 @@
+/* ==========================================================================
+   Header & Navbar Dark Theme (Coerente con lo sfondo dell'app)
+   ========================================================================== */
+.app-header {
+    background: rgba(10, 15, 26, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.6rem 0;
+    width: 100%;
+}
+
+.app-navbar {
+    padding: 0;
+    background: transparent !important;
+}
+
+/* ==========================================================================
+   Brand & Logo
+   ========================================================================== */
+.app-brand {
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+}
+
+.brand-mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.app-brand:hover .brand-mark {
+    border-color: #3b82f6;
+    transform: translateY(-1px);
+}
+
+.brand-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.brand-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+
+.brand-dot {
+    color: #3b82f6;
+}
+
+.brand-sub {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #94a3b8;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Voci di Navigazione (Links chiari con hover ad alta leggibilità)
+   ========================================================================== */
+.app-nav {
+    list-style: none;
+}
+
+.app-nav .nav-link {
+    color: #94a3b8 !important;
+    font-size: 0.92rem;
+    font-weight: 500;
+    padding: 0.5rem 0.9rem !important;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.app-nav .nav-link i {
+    font-size: 1rem;
+    color: #64748b;
+    transition: color 0.2s ease;
+}
+
+/* Hover */
+.app-nav .nav-link:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.app-nav .nav-link:hover i {
+    color: #3b82f6;
+}
+
+/* Link Attivo */
+.app-nav .nav-link.active {
+    color: #ffffff !important;
+    font-weight: 600;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.app-nav .nav-link.active i {
+    color: #3b82f6;
+}
+/* ==========================================================================
+   Stile Globale App Body (Dark Depth Theme)
+   ========================================================================== */
+.app-body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f8fafc;
+    /* Sfondo scuro con sfumatura radiale soffusa dietro alla card centrale */
+    background-color: #060911;
+    background-image: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.15), transparent 70%),
+        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(30, 58, 138, 0.12), transparent 70%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Personalizzazione Barra di Scorrimento per il Body Scuro */
+.app-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.app-body::-webkit-scrollbar-track {
+    background: #060911;
+}
+
+.app-body::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+}
+
+.app-body::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+}
+/* ==========================================================================
+   Footer Dark Depth
+   ========================================================================== */
+.site-footer {
+    background: rgba(10, 15, 26, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+    position: relative;
+    z-index: 10;
+}
+
+/* Brand e Icona Footer */
+.footer-brand-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* Titoli delle Sezioni */
+.footer-heading {
+    color: #f8fafc;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.15rem;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Descrizione Progetto */
+.footer-text {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    margin-bottom: 0;
+}
+
+/* Tag distintivo RAG */
+.footer-badge-tag {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #60a5fa;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    padding: 0.3rem 0.75rem;
+    border-radius: 9999px;
+}
+
+/* Link del Footer */
+.footer-links li {
+    margin-bottom: 0.65rem;
+}
+
+.footer-links li:last-child {
+    margin-bottom: 0;
+}
+
+.footer-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.footer-links a i {
+    font-size: 0.8rem;
+    color: #64748b;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Hover sui Link: scivolamento verso destra e blu elettrico */
+.footer-links a:hover {
+    color: #ffffff;
+    transform: translateX(4px);
+}
+
+.footer-links a:hover i {
+    color: #3b82f6;
+}
+
+/* Link Mail specifico */
+.footer-links a.mail-link:hover {
+    color: #60a5fa;
+}
+
+/* Barra Inferiore */
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.82rem;
+}
+
+.footer-text-muted {
+    color: #64748b;
+}
+
+/* Dot indicatore inferiore */
+.footer-dot-live {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: #3b82f6;
+    border-radius: 50%;
+    margin-right: 6px;
+    box-shadow: 0 0 6px #3b82f6;
+    vertical-align: middle;
+}
+/* Rimuove il contorno/righina verde di default del browser */
+.run-dialog,
+.run-dialog:focus,
+.run-dialog:focus-visible {
+    outline: none !important;
+    border: none !important;
+}
+/* Rimuove qualsiasi sottolineatura o barretta pseudo-elemento dai titoli del footer */
+.footer-heading::after,
+.footer-heading::before {
+    content: none !important;
+    display: none !important;
+}
+
+.footer-heading {
+    border-bottom: none !important;
+    text-decoration: none !important;
+}
+/* ==========================================================================
+   Hero Section & Pillole Titolo (Pure CSS, niente immagini esterne)
+   ========================================================================== */
+.hero-title {
+    font-size: clamp(2rem, 4vw + 1rem, 3.2rem);
+    color: #f8fafc;
+    letter-spacing: -0.03em;
+    line-height: 1.3;
+}
+
+.hero-lead {
+    font-size: 1.1rem;
+    max-width: 680px;
+    color: #94a3b8 !important;
+    line-height: 1.6;
+}
+
+/* Pillole evidenziate nel titolo */
+.hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.15rem 0.65rem 0.15rem 0.85rem;
+    border-radius: 12px;
+    vertical-align: middle;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-pill:hover {
+    transform: translateY(-2px);
+}
+
+/* Pillola KB: gradiente verde smeraldo / teal */
+.hero-pill-kb {
+    background: rgba(20, 184, 166, 0.12);
+    border: 1px solid rgba(20, 184, 166, 0.4);
+    box-shadow: 0 0 20px -5px rgba(20, 184, 166, 0.3);
+}
+
+/* Pillola AI: gradiente blu elettrico / cyan */
+.hero-pill-ai {
+    background: rgba(14, 165, 233, 0.12);
+    border: 1px solid rgba(14, 165, 233, 0.4);
+    box-shadow: 0 0 20px -5px rgba(14, 165, 233, 0.3);
+}
+
+/* Tag interno "KB" e "AI" */
+.hero-pill-kb .hero-tag {
+    background: #14b8a6;
+    color: #060911;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.2rem 0.45rem;
+    border-radius: 6px;
+    letter-spacing: 0.04em;
+}
+
+.hero-pill-ai .hero-tag {
+    background: #0ea5e9;
+    color: #060911;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.2rem 0.45rem;
+    border-radius: 6px;
+    letter-spacing: 0.04em;
+}
+/* ==========================================================================
+   Sezione Informativa (Affiancata, Dark & Glow)
+   ========================================================================== */
+.info-section {
+    padding: 2.5rem 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+/* Badge introduttivo sopra il titolo */
+.info-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* Titolo H3 */
+.info-title {
+    font-size: 1.65rem;
+    color: #f8fafc;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+/* Testo descrittivo */
+.info-text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #94a3b8;
+    margin-bottom: 0.85rem;
+}
+
+/* Contenitore Immagine */
+.info-figure {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #0b0f19;
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6), 
+                0 0 25px -5px rgba(59, 130, 246, 0.2);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.info-figure:hover {
+    transform: translateY(-3px);
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+/* Immagine */
+.info-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 15px;
+}

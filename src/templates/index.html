@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A simple web demo for analysing the quality of a Knowledge Base">
+        <link rel="icon" type="image/x-icon" href="/static/images/knowledge-base.png">
+
+        <title>Knowledge Base Quality Analyzer</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+            integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="/static/css/header.css">
+        <link rel="stylesheet" href="/static/css/index.css">
+        <link rel="stylesheet" href="/static/css/chat.css">
+    </head>
+    <body class="app-body">
+
+        <header class="app-header sticky-top">
+            <nav class="navbar app-navbar">
+                <div class="container d-flex align-items-center justify-content-between">
+                    <a class="navbar-brand app-brand d-flex align-items-center" href="/">
+                        <span class="brand-mark me-2">
+                            <img src="/static/images/knowledge-base.png" alt="CK Logo" class="brand-img">
+                        </span>
+                        <span class="brand-text d-flex flex-column">
+                            <strong class="brand-title">CK <span class="brand-dot">·</span> Company Knowledge</strong>
+                            <small class="brand-sub">Qualità della Knowledge Base</small>
+                        </span>
+                    </a>
+                    <ul class="nav app-nav align-items-center gap-1 gap-md-3 m-0 p-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/indicators">
+                                <i class="bi bi-speedometer2"></i> Indicatori
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-bar-chart-line"></i> Cruscotto
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-info-circle"></i> Informazioni utili
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container app-main">
+            <section class="row align-items-center my-4 my-md-5">
+                <div class="col-12 text-center">
+                    <h1 class="hero-title fw-bold">
+                        Quanto è 
+                        <span class="hero-pill hero-pill-kb">
+                            affidabile <span class="hero-tag">KB</span>
+                        </span> 
+                        la tua 
+                        <span class="hero-pill hero-pill-ai">
+                            conoscenza? <span class="hero-tag">AI</span>
+                        </span>
+                    </h1>
+                    <p class="hero-lead text-secondary mt-3 mx-auto">
+                        Nove diverse dimensioni, raggruppate in 4 aree. Sfoglia le pagine e lancia l'inferenza su ciascun gruppo.
+                    </p>
+                </div>
+            </section>
+
+            <section class="row info-section align-items-center g-4 g-lg-5 my-5">
+                <div class="col-md-6 pe-md-4">
+                    <div class="info-badge mb-2" style="margin-left: 30px;">
+                        <i class="bi bi-cpu me-1"></i> Architettura RAG
+                    </div>
+                    <h3 class="info-title fw-bold" style="margin-left: 30px;">Certificazione e Audit della Conoscenza</h3>
+                    <p class="info-text" style="margin-left: 30px;">
+                        Un framework avanzato progettato per analizzare la bontà strutturale e semantica 
+                        dei chunk documentali. Identifica ridondanze, allucinazioni e discrepanze prima che 
+                        impattino le performance dell'LLM.
+                    </p>
+                    <p class="info-text text-muted small" style="margin-left: 30px;">
+                        Attraverso un approccio iterativo a metriche oggettive e giudici neurali dedicati, 
+                        garantisce che solo informazioni verificate e coerenti alimentino la pipeline di generazione.
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <figure class="info-figure m-0">
+                        <img src="/static/images/model.jpg" alt="Anteprima della dashboard di qualità della Knowledge Base" class="info-image img-fluid">
+                    </figure>
+                </div>
+            </section>
+
+            <section class="row align-items-center">
+                <div class="col-md-12 d-flex flex-column align-items-center">
+                    <section class="book" id="book"></section>
+                    <div class="d-flex align-items-center gap-3 mt-4">
+                        <button class="round" id="prev" aria-label="Precedente">«</button>
+                        <div class="dots" id="dots"></div>
+                        <button class="round" id="next" aria-label="Successiva">»</button>
+                    </div>
+                    <p class="small">Trascina la card con il mouse, oppure usa le freccie ← →</p>
+                </div>
+            </section>
+        </main>
+
+        {% if error %}
+            <section class="error-box">
+                <div class="alert alert-danger">{{error}}</div>
+            </section>
+        {% endif %}
+
+        <div class="fab-container">
+            <div class="fab-options" id="fabOptions">
+                <button type="button" class="btn btn-secondary fab-btn" title="Chiedi all'assistente virtuale" id="chatFab"><i class="bi bi-robot"></i></button>
+                <button type="button" class="btn btn-info text-white fab-btn" title="Opzione 3"><i class="bi bi-chat-dots"></i></button>
+                <button type="button" class="btn btn-success fab-btn" title="Opzione 2"><i class="bi bi-envelope"></i></button>
+                <button type="button" class="btn btn-warning text-white fab-btn" title="Chunking"><i class="bi bi-grid-3x2"></i></button>
+            </div>
+            <button type="button" class="btn btn-primary fab-btn main-fab" id="mainFab" title="Menu"><i class="bi bi-speedometer2"></i></button>
+        </div>
+
+        <div class="chat-panel" id="chatPanel" aria-label="Assistente Locale">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <img src="/static/images/assistant.jpg" alt="Robot Assistente" class="chat-robot-inline">
+                    <div class="chat-title-container">Assistente locale <small>Una domanda alla volta, senza storico</small></div>
+                </div>
+                <button type="button" class="chat-close" id="chatClose" aria-label="Chiudi">&times;</button>
+            </div>
+            
+            <div class="chat-log" id="chatLog">
+                <p class="chat-hint" id="chatHint"><i class="bi bi-info-circle"></i>  Copia qualcosa dalla pagina e chiedimi cosa significa.</p>
+            </div>
+            
+            <form class="chat-form" id="chatForm" autocomplete="off">
+                <input type="text" id="chatInput" placeholder="Scrivi una domanda…" maxlength="2000">
+                <button type="submit" id="chatSend"><i class="bi bi-send"></i> Invia</button>
+            </form>
+        </div>
+        
+        <button type="button" class="btn btn-primary back-to-top-btn" id="backToTop" title="Torna all'inizio"><i class="bi bi-arrow-up"></i></button>
+
+        <footer class="site-footer mt-auto">
+            <div class="container">
+                <div class="row g-4 py-5 align-items-start">
+                    <div class="col-12 col-md-5 pe-lg-4">
+                        <div class="footer-brand d-flex align-items-center gap-2 mb-3">
+                            <img src="/static/images/knowledge-base.png" alt="CK Logo" class="footer-brand-img">
+                            <h6 class="footer-heading m-0">Company Knowledge</h6>
+                        </div>
+                        <p class="footer-text">Modello di indicatori avanzati per misurare, analizzare e certificare la qualità della conoscenza  all'interno della Knowledge Base aziendale CK.</p>
+                        <div class="footer-badge-tag mt-3"><i class="bi bi-shield-check me-1"></i> RAG Quality Framework</div>
+                    </div>                    
+                    
+                    <div class="col-6 col-md-3 offset-md-1">
+                        <h6 class="footer-heading">Naviga</h6>
+                        <ul class="footer-links list-unstyled m-0">
+                            <li><a href="/"><i class="bi bi-chevron-right"></i> Home</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Indicatori</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Cruscotto</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Informazioni utili</a></li>
+                        </ul>
+                    </div>                    
+                    
+                    <div class="col-6 col-md-3">
+                        <h6 class="footer-heading">Risorse e Contatti</h6>
+                        <ul class="footer-links list-unstyled m-0">
+                            <li><a href="mailto:nome@placeholder.it" class="mail-link"><i class="bi bi-envelope"></i> nome@placeholder.it</a></li>
+                            <li><a href="#"><i class="bi bi-file-earmark-code"></i> Documentazione API</a> </li>
+                            <li><a href="#"><i class="bi bi-journal-text"></i> Linee Guida</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom py-3 d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
+                    <span class="footer-text-muted">&copy; 2026 CK · Company Knowledge. Tutti i diritti riservati.</span>
+                    <span class="footer-text-muted text-sm"><span class="footer-dot-live"></span> Framework Qualità RAG v1.0</span>
+                </div>
+            </div>
+        </footer>
+
+        <dialog id="runDialog" class="run-dialog">
+            <form action="/analyze" method="post" id="runForm">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div>
+                        <h5 class="mb-0" id="runTitle">Lancia inferenza</h5>
+                        <small class="text-secondary" id="runSub"></small>
+                    </div>
+                    <button type="button" class="run-x" id="runClose" aria-label="Chiudi">x</button>
+                </div>
+
+                <input type="hidden" name="group" id="runGroup">
+
+                <div id="runContents">
+                    <label class="form-label small mb-1" for="f-chunks">Strategia di chunking</label>
+                    <select class="form-control" id="f-chunks" name="chunks">
+                        <option value="" selected>Open and choose one …</option>
+                        <option value="out/chunks_fixed.jsonl">Fixed</option>
+                        <option value="out/chunks_recursive.jsonl">Recursive</option>
+                        <option value="out/chunks_semantic.jsonl">Semantic</option>
+                    </select>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-3">
+                            <label class="form-label small mb-1" for="f-th">Soglia ridondanza</label>
+                            <input class="form-control" id="f-th" name="threshold" type="number" step="0.01" min="0" max="1" value="0.92">
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label small mb-1" for="f-cth">Soglia candidati</label>
+                            <input class="form-control" id="f-cth" name="cand_threshold" type="number" step="0.01" min="0" max="1" value="0.85">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small mb-1" for="f-k">Numero di aree k (0 = automatico)</label>
+                            <input class="form-control" id="f-k" name="k" type="number" min="0" value="0">
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-3">                        
+                        <div class="col-4">
+                            <label class="form-label small mb-1" for="f-kmax">k massimo da provare</label>
+                            <input class="form-control" id="f-kmax" name="k_max" type="number" min="3" value="12">
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label small mb-1" for="f-share">Soglia copertura (0 = 0.5/k)</label>
+                            <input class="form-control" id="f-share" name="min_share" type="number" step="0.01" min="0" max="1" value="0">
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label small mb-1" for="f-tth">Soglia argomento presente</label>
+                            <input class="form-control" id="f-tth" name="topic_threshold" type="number" step="0.01" min="0" max="1" value="0.55">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label small mb-1" for="f-topics">Argomenti attesi (opzionale)</label>
+                        <textarea class="form-control" id="f-topics" name="expected_topics" rows="3"
+                                placeholder="Mutui: tassi di interesse | documenti richiesti&#10;Conti: costi di tenuta"></textarea>
+                    </div>
+                    <details class="mb-2">
+                        <summary class="small text-secondary">Opzioni avanzate / giudice LLM</summary>
+                        <div class="row g-3 mt-1">
+                            <div class="col-4">
+                                <label class="form-label small mb-1" for="f-min">Min. caratteri utili</label>
+                                <input class="form-control" id="f-min" name="min_chars" type="number" min="0" value="40">
+                            </div>
+                            <div class="col-4">
+                                <label class="form-label small mb-1" for="f-max">Max coppie giudicate</label>
+                                <input class="form-control" id="f-max" name="max_pairs" type="number" min="1" value="10">
+                            </div>
+                            <div class="col-4">
+                                <label class="form-label small mb-1" for="f-show">Coppie da mostrare</label>
+                                <input class="form-control" id="f-show" name="max_show" type="number" min="10" max="100" value="50">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small mb-1" for="f-judge">Modello Ollama (vuoto = nessun giudice)</label>
+                                <input class="form-control" id="f-judge" name="judge" placeholder="es. qwen2.5:14b-instruct">
+                            </div>
+                        </div>
+                    </details>
+                </div>
+
+                <div id="runLifecycle" hidden>
+                    <label class="form-label small mb-1" for="s-chunks">File dei chunk</label>
+                    <select class="form-control mb-3" id="s-chunks" name="chunks" required disabled>
+                        <option value="" selected disabled>Scegli una strategia…</option>
+                        <option value="out/chunks_fixed.jsonl">Fixed</option>
+                        <option value="out/chunks_recursive.jsonl">Recursive</option>
+                        <option value="out/chunks_semantic.jsonl">Semantic</option>
+                    </select>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <label class="form-label small mb-1" for="s-k">Numero di temi k (0 = automatico)</label>
+                            <input class="form-control" id="s-k" name="k" type="number" min="0" value="0" disabled>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small mb-1" for="s-kmax">k massimo da provare</label>
+                            <input class="form-control" id="s-kmax" name="k_max" type="number" min="3" value="12" disabled>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small mb-1" for="s-min">Min. caratteri utili</label>
+                            <input class="form-control" id="s-min" name="min_chars" type="number" value="40" disabled>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small mb-1" for="s-short">Soglia "chunk corto"</label>
+                            <input class="form-control" id="s-short" name="short_chars" type="number" value="100" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-secondary mb-0" id="runNA">L'inferenza su questo gruppo non è ancora disponibile.</p>
+
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <button type="button" class="btn btn-outline-secondary" id="runCancel">Annulla</button>
+                    <button type="submit" class="btn btn-ck" id="runSubmit">Avvia analisi</button>
+                </div>
+            </form>
+        </dialog>
+
+        <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
+        <script src="/static/js/index.js"></script>
+        <script src="/static/js/layout.js"></script>
+        <script src="/static/js/chat.js"></script>
+    </body>
+</html>

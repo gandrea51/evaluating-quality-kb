@@ -1,0 +1,911 @@
+/* ==========================================================================
+   Sezione Copertura Tematica - Header & Badge
+   ========================================================================== */
+.coverage-section {
+    margin-bottom: 3.5rem;
+}
+
+.coverage-section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.coverage-eyebrow {
+    display: block;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #c084fc; /* Tonalità viola/ametista della copertura */
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+}
+
+.coverage-section-heading .section-title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: #f8fafc;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+}
+
+.coverage-intro {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    max-width: 760px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Badge con conteggio aree */
+.coverage-k-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    padding: 0.45rem 0.9rem;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+
+.coverage-k-badge span {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #c084fc;
+    font-weight: 700;
+}
+
+.coverage-k-badge strong {
+    font-size: 1.3rem;
+    color: #ffffff;
+    font-family: ui-monospace, monospace;
+}
+
+/* ==========================================================================
+   Griglia Metriche di Copertura
+   ========================================================================== */
+.coverage-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.15rem;
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.25rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.16);
+}
+
+.metric-card.highlighted {
+    background: linear-gradient(145deg, rgba(30, 27, 75, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+    border-color: rgba(168, 85, 247, 0.35);
+    box-shadow: 0 0 20px -5px rgba(168, 85, 247, 0.2);
+}
+
+.metric-card-danger {
+    background: linear-gradient(145deg, rgba(69, 10, 10, 0.35) 0%, rgba(15, 23, 42, 0.85) 100%);
+    border-color: rgba(239, 68, 68, 0.35);
+}
+
+.metric-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 0.45rem;
+}
+
+.metric-value {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 0.45rem;
+}
+
+.metric-sub {
+    font-size: 0.74rem;
+    color: #64748b;
+    line-height: 1.35;
+    margin-top: auto;
+}
+
+/* ==========================================================================
+   Tabelle di Copertura Tematica (.coverage-table-section)
+   ========================================================================== */
+.coverage-table-section {
+    background: linear-gradient(145deg, rgba(17, 24, 39, 0.8) 0%, rgba(10, 15, 26, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 1.75rem;
+    box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
+    margin-bottom: 1.75rem;
+}
+
+.coverage-table-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1.25rem;
+}
+
+.plot-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 0.25rem;
+}
+
+.coverage-chart-description {
+    font-size: 0.82rem;
+    color: #64748b;
+    margin: 0;
+}
+
+.coverage-table-count {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.3rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Tabella Personalizzata */
+.coverage-table-box {
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+
+.coverage-table {
+    background: transparent !important;
+    color: #e2e8f0 !important;
+    font-size: 0.86rem;
+}
+
+.coverage-table thead tr {
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.coverage-table th {
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #94a3b8;
+    padding: 0.85rem 1rem;
+    white-space: nowrap;
+    border: none;
+}
+
+.coverage-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    background: transparent;
+    vertical-align: middle;
+}
+
+.coverage-table tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Dettagli Celle Tabella */
+.coverage-topic {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    white-space: nowrap;
+}
+
+.cluster-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.coverage-terms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    max-width: 320px;
+}
+
+.term-chip {
+    font-size: 0.74rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
+}
+
+.coverage-number {
+    font-family: ui-monospace, monospace;
+    font-weight: 600;
+    color: #f8fafc;
+    white-space: nowrap;
+}
+
+.coverage-document {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Badge di Stato Copertura */
+.coverage-statuses {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.bg-success-soft {
+    background: rgba(34, 197, 94, 0.15) !important;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.bg-danger-soft {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.bg-secondary-soft {
+    background: rgba(148, 163, 184, 0.12) !important;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+/* ==========================================================================
+   Liste e Note a Piè Sezione
+   ========================================================================== */
+.coverage-table-section ul {
+    padding-left: 1.25rem;
+    color: #94a3b8;
+    font-size: 0.88rem;
+    line-height: 1.7;
+}
+
+.coverage-table-section ul b {
+    color: #f1f5f9;
+}
+
+.coverage-footnote {
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid #38bdf8;
+    padding: 0.85rem 1.15rem;
+    border-radius: 0 10px 10px 0;
+    margin: 1.5rem 0 0;
+}
+
+.coverage-footnote strong {
+    color: #f8fafc;
+}
+
+/* ==========================================================================
+   Griglia Grafici di Copertura (Barre, Silhouette, Heatmap)
+   ========================================================================== */
+.coverage-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: 1.5rem;
+}
+
+.coverage-chart {
+    margin-bottom: 1.5rem;
+}
+
+.coverage-chart-heading {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Altezze responsive per i canvas Plotly */
+.responsive-plot.h-md {
+    width: 100%;
+    min-height: 380px;
+    height: 400px;
+}
+/* ==========================================================================
+   Sezione Ridondanza - Sweep Soglie & Duplicati
+   ========================================================================== */
+.threshold-section {
+    margin-bottom: 3.5rem;
+}
+
+.threshold-description {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    max-width: 760px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Indicatore della Soglia Attuale */
+.threshold-current {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: #93c5fd;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.45rem 0.9rem;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+
+.threshold-current strong {
+    font-size: 1.15rem;
+    color: #ffffff;
+    font-family: ui-monospace, monospace;
+}
+
+/* ==========================================================================
+   Griglia Sweep delle Soglie (.threshold-grid)
+   ========================================================================== */
+.threshold-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.threshold-card {
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.35rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.threshold-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* Stato Attivo (Card della soglia selezionata) */
+.threshold-card.threshold-active {
+    background: linear-gradient(145deg, rgba(23, 37, 84, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+    border-color: #3b82f6;
+    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Header della card */
+.threshold-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.threshold-card-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.threshold-active .threshold-card-label {
+    color: #93c5fd;
+}
+
+.threshold-number {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #f8fafc;
+    margin: 0;
+    font-family: ui-monospace, monospace;
+}
+
+.threshold-active-badge {
+    background: rgba(59, 130, 246, 0.2) !important;
+    color: #60a5fa !important;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.25rem 0.55rem;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+/* Metrica Principale R */
+.threshold-main-metric {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 1.15rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.threshold-rate {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #ffffff;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+}
+
+.threshold-rate small {
+    font-size: 1.1rem;
+    color: #94a3b8;
+}
+
+.threshold-rate-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+/* Dettagli Statistiche (dl, dt, dd) */
+.threshold-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin: 0;
+}
+
+.threshold-details div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.threshold-details dt {
+    color: #64748b;
+    font-weight: 500;
+    margin: 0;
+}
+
+.threshold-details dd {
+    color: #cbd5e1;
+    font-weight: 700;
+    font-family: ui-monospace, monospace;
+    margin: 0;
+}
+
+.threshold-active .threshold-details dd {
+    color: #ffffff;
+}
+
+/* Stato Vuoto */
+.threshold-empty {
+    font-size: 0.9rem;
+    color: #64748b;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+}
+
+/* ==========================================================================
+   Gruppi di Duplicati (Accordion Dark & Code)
+   ========================================================================== */
+.threshold-section details {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 0.85rem 1.15rem;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.threshold-section details:hover {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(15, 23, 42, 0.85);
+}
+
+.threshold-section details[open] {
+    border-color: rgba(59, 130, 246, 0.35);
+    background: rgba(15, 23, 42, 0.95);
+}
+
+.threshold-section summary {
+    font-size: 0.92rem;
+    color: #e2e8f0;
+    cursor: pointer;
+    font-weight: 500;
+    outline: none;
+}
+
+.threshold-section summary b {
+    color: #ffffff;
+}
+
+.threshold-section details ul {
+    margin-top: 0.75rem;
+    padding-left: 1.25rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+.threshold-section details li {
+    margin-bottom: 0.4rem;
+}
+
+.threshold-section details code {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    padding: 0.15rem 0.4rem;
+    border-radius: 5px;
+    font-family: ui-monospace, monospace;
+    font-size: 0.82rem;
+}
+/* ==========================================================================
+   Sezione Coerenza Informativa - Intestazione & Conteggio
+   ========================================================================== */
+.candidate-section {
+    margin-bottom: 4rem;
+}
+
+.candidate-section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.candidate-total {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.4rem 0.85rem;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   Barra di Ricerca Coppie Candidate
+   ========================================================================== */
+.candidate-search {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.15rem 1.4rem;
+    margin: 1.25rem 0 2rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+.candidate-search-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.candidate-search-field i.bi-search {
+    position: absolute;
+    left: 1rem;
+    color: #64748b;
+    font-size: 1rem;
+    pointer-events: none;
+}
+
+.candidate-search-field input[type="search"] {
+    width: 100%;
+    background: #090e17;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 0.75rem 2.5rem 0.75rem 2.85rem;
+    color: #f8fafc;
+    font-size: 0.92rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.candidate-search-field input[type="search"]:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    background: #0d1524;
+}
+
+.candidate-search-field input[type="search"]::placeholder {
+    color: #64748b;
+}
+
+.candidate-search-clear {
+    position: absolute;
+    right: 0.85rem;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.2rem;
+}
+
+.candidate-search-clear:hover {
+    color: #ef4444;
+}
+
+.candidate-search-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: #64748b;
+    margin-top: 0.65rem;
+    padding: 0 0.35rem;
+}
+
+#candidate-search-count {
+    color: #93c5fd;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   GRIGLIA A 3 COLONNE PER LE COPPIE CANDIDATE & CONFLITTI
+   ========================================================================== */
+.candidates-list,
+#conflicts-list {
+    display: grid;
+    /* Adatta a 3 colonne su schermi ampi, 2 su medi, 1 su mobile */
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+@media (min-width: 1400px) {
+    .candidates-list,
+    #conflicts-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Singola Card Candidata */
+.candidate-card {
+    background: linear-gradient(145deg, rgba(17, 24, 39, 0.85) 0%, rgba(10, 15, 26, 0.95) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 15px 35px -8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.candidate-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(59, 130, 246, 0.35);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 20px -5px rgba(59, 130, 246, 0.15);
+}
+
+/* Header della Card */
+.candidate-header {
+    margin-bottom: 0.85rem;
+}
+
+.candidate-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.candidate-similarity {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.25rem 0.55rem;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.candidate-similarity strong {
+    color: #f8fafc;
+    font-family: ui-monospace, monospace;
+}
+
+.candidate-flag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.28rem 0.55rem;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+/* Badge di attesa / pulsazione */
+.candidate-pulse {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: #f59e0b;
+    border-radius: 50%;
+    margin-right: 5px;
+    box-shadow: 0 0 8px #f59e0b;
+    animation: pulseGlow 1.5s infinite;
+}
+
+/* ==========================================================================
+   Contenitori dei Testi A e B dentro la card
+   ========================================================================== */
+.candidate-texts {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* I col-md-6 all'interno della griglia a 3 colonne si espandono al 100% per leggibilità */
+.candidate-texts .col-md-6 {
+    width: 100%;
+}
+
+.candidate-chunk {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.candidate-chunk-a {
+    border-left: 3px solid #3b82f6;
+}
+
+.candidate-chunk-b {
+    border-left: 3px solid #8b5cf6;
+}
+
+.chunk-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.5rem;
+}
+
+.chunk-letter {
+    font-size: 0.75rem;
+    font-weight: 800;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.candidate-chunk-a .chunk-letter {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+}
+
+.candidate-chunk-b .chunk-letter {
+    background: rgba(139, 92, 246, 0.2);
+    color: #c084fc;
+}
+
+.chunk-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #cbd5e1;
+}
+
+.chunk-id {
+    margin-left: auto;
+    font-size: 0.72rem;
+    color: #64748b;
+    font-family: ui-monospace, monospace;
+}
+
+.chunk-text {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: #94a3b8;
+    margin: 0;
+    max-height: 160px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+/* Scrollbar sottile nei box di testo */
+.chunk-text::-webkit-scrollbar {
+    width: 4px;
+}
+.chunk-text::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   Box Spiegazione del Giudice LLM
+   ========================================================================== */
+.explanation-box {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #cbd5e1;
+}
+
+.expl-contraddizione {
+    border-left: 3px solid #ef4444;
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.expl-complementare {
+    border-left: 3px solid #22c55e;
+    background: rgba(34, 197, 94, 0.08);
+}
+
+.expl-equivalente {
+    border-left: 3px solid #3b82f6;
+    background: rgba(59, 130, 246, 0.08);
+}
+.duplicate-groups {
+  column-count: 3;
+  column-gap: 1.25rem;
+  align-items: start;
+}
+
+/* Evita che un gruppo venga spezzato a metà tra due colonne */
+.duplicate-group {
+  break-inside: avoid;
+  page-break-inside: avoid; /* fallback browser più vecchi */
+  margin-bottom: 0.5rem;
+}
+
+/* Su schermi stretti passa a 2 e poi 1 colonna */
+@media (max-width: 1100px) {
+  .duplicate-groups {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 720px) {
+  .duplicate-groups {
+    column-count: 1;
+  }
+}

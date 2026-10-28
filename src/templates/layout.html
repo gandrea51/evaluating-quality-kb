@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A simple web demo for analysing the quality of a Knowledge Base">
+        <link rel="icon" type="image/x-icon" href="/static/images/knowledge-base.png">
+
+        <title>Knowledge Base Quality Analyzer</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+            integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="/static/css/index.css">
+        <link rel="stylesheet" href="/static/css/header.css">
+        <link rel="stylesheet" href="/static/css/layout.css">        
+        <link rel="stylesheet" href="/static/css/chat.css">
+        {% block style %}{% endblock %}
+    </head>
+    <body class="app-body">
+
+        <header class="app-header sticky-top">
+            <nav class="navbar app-navbar">
+                <div class="container d-flex align-items-center justify-content-between">
+                    <a class="navbar-brand app-brand d-flex align-items-center" href="/">
+                        <span class="brand-mark me-2">
+                            <img src="/static/images/knowledge-base.png" alt="CK Logo" class="brand-img">
+                        </span>
+                        <span class="brand-text d-flex flex-column">
+                            <strong class="brand-title">CK <span class="brand-dot">·</span> Company Knowledge</strong>
+                            <small class="brand-sub">Qualità della Knowledge Base</small>
+                        </span>
+                    </a>
+                    <ul class="nav app-nav align-items-center gap-1 gap-md-3 m-0 p-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/indicators">
+                                <i class="bi bi-speedometer2"></i> Indicatori
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-bar-chart-line"></i> Cruscotto
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-info-circle"></i> Informazioni utili
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        
+        <main class="container app-main">
+            {% block contents %}{% endblock %}
+        </main>
+        
+        {% if error %}
+            <section class="error-box">
+                <div class="alert alert-danger">{{error}}</div>
+            </section>
+        {% endif %}
+
+         <div class="fab-container">
+            <div class="fab-options" id="fabOptions">
+                <button type="button" class="btn btn-secondary fab-btn" title="Chiedi all'assistente virtuale" id="chatFab"><i class="bi bi-robot"></i></button>
+                <button type="button" class="btn btn-info text-white fab-btn" title="Opzione 3"><i class="bi bi-chat-dots"></i></button>
+                <button type="button" class="btn btn-success fab-btn" title="Opzione 2"><i class="bi bi-envelope"></i></button>
+                <button type="button" class="btn btn-warning text-white fab-btn" title="Chunking"><i class="bi bi-grid-3x2"></i></button>
+            </div>
+            <button type="button" class="btn btn-primary fab-btn main-fab" id="mainFab" title="Menu"><i class="bi bi-speedometer2"></i></button>
+        </div>
+
+        <div class="chat-panel" id="chatPanel" aria-label="Assistente Locale">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <img src="/static/images/assistant.jpg" alt="Robot Assistente" class="chat-robot-inline">
+                    <div class="chat-title-container">Assistente locale <small>Una domanda alla volta, senza storico</small></div>
+                </div>
+                <button type="button" class="chat-close" id="chatClose" aria-label="Chiudi">&times;</button>
+            </div>
+            
+            <div class="chat-log" id="chatLog">
+                <p class="chat-hint" id="chatHint"><i class="bi bi-info-circle"></i>  Copia qualcosa dalla pagina e chiedimi cosa significa.</p>
+            </div>
+            
+            <form class="chat-form" id="chatForm" autocomplete="off">
+                <input type="text" id="chatInput" placeholder="Scrivi una domanda…" maxlength="2000">
+                <button type="submit" id="chatSend"><i class="bi bi-send"></i> Invia</button>
+            </form>
+        </div>
+
+        <button type="button" class="btn btn-primary back-to-top-btn" id="backToTop" title="Torna all'inizio"><i class="bi bi-arrow-up"></i></button>
+
+        <footer class="site-footer mt-auto">
+            <div class="container">
+                <div class="row g-4 py-5 align-items-start">
+                    <div class="col-12 col-md-5 pe-lg-4">
+                        <div class="footer-brand d-flex align-items-center gap-2 mb-3">
+                            <img src="/static/images/knowledge-base.png" alt="CK Logo" class="footer-brand-img">
+                            <h6 class="footer-heading m-0">Company Knowledge</h6>
+                        </div>
+                        <p class="footer-text">Modello di indicatori avanzati per misurare, analizzare e certificare la qualità della conoscenza  all'interno della Knowledge Base aziendale CK.</p>
+                        <div class="footer-badge-tag mt-3"><i class="bi bi-shield-check me-1"></i> RAG Quality Framework</div>
+                    </div>                    
+                    
+                    <div class="col-6 col-md-3 offset-md-1">
+                        <h6 class="footer-heading">Naviga</h6>
+                        <ul class="footer-links list-unstyled m-0">
+                            <li><a href="/"><i class="bi bi-chevron-right"></i> Home</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Indicatori</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Cruscotto</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Informazioni utili</a></li>
+                        </ul>
+                    </div>                    
+                    
+                    <div class="col-6 col-md-3">
+                        <h6 class="footer-heading">Risorse e Contatti</h6>
+                        <ul class="footer-links list-unstyled m-0">
+                            <li><a href="mailto:nome@placeholder.it" class="mail-link"><i class="bi bi-envelope"></i> nome@placeholder.it</a></li>
+                            <li><a href="#"><i class="bi bi-file-earmark-code"></i> Documentazione API</a> </li>
+                            <li><a href="#"><i class="bi bi-journal-text"></i> Linee Guida</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom py-3 d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
+                    <span class="footer-text-muted">&copy; 2026 CK · Company Knowledge. Tutti i diritti riservati.</span>
+                    <span class="footer-text-muted text-sm"><span class="footer-dot-live"></span> Framework Qualità RAG v1.0</span>
+                </div>
+            </div>
+        </footer>
+        
+        <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
+        <script src="/static/js/layout.js"></script>        
+        <script src="/static/js/chat.js"></script>
+        {% block scripts %}{% endblock %}
+    </body>
+
+</html>

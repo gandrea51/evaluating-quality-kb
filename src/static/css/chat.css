@@ -1,0 +1,251 @@
+/* Pannello chat: si apre a sinistra della pila di bottoni FAB */
+.chat-panel {
+    position: fixed;
+    right: 5.5rem;
+    bottom: 1.5rem;
+    width: min(360px, calc(100vw - 7rem));
+    height: min(460px, calc(100vh - 3rem));
+    display: none;
+    flex-direction: column;
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.35);
+    overflow: hidden;
+    z-index: 1070;
+}
+
+.chat-panel.open {
+    display: flex;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 1rem;
+    background: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.chat-header small {
+    display: block;
+    font-weight: 500;
+    color: #64748b;
+    font-size: 0.72rem;
+}
+
+.chat-close {
+    border: none;
+    background: transparent;
+    color: #64748b;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 4px;
+}
+
+.chat-close:hover {
+    color: #ef4444;
+}
+
+.chat-log {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    overscroll-behavior: contain;
+}
+
+.chat-hint {
+    margin: auto;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.82rem;
+    max-width: 24ch;
+}
+
+.chat-msg {
+    max-width: 88%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.chat-msg.user {
+    align-self: flex-end;
+    background: #2563eb;
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+}
+
+.chat-msg.bot {
+    align-self: flex-start;
+    background: #f1f5f9;
+    color: #0f172a;
+    border-bottom-left-radius: 4px;
+}
+
+.chat-msg.pending {
+    align-self: flex-start;
+    background: #f1f5f9;
+    color: #64748b;
+    font-style: italic;
+}
+
+.chat-msg.error {
+    align-self: flex-start;
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.chat-form {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.7rem;
+    border-top: 1px solid #e2e8f0;
+    background: #ffffff;
+}
+
+.chat-form input {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 0.5rem 0.7rem;
+    font-size: 0.9rem;
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+.chat-form input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    background: #ffffff;
+}
+
+.chat-form button {
+    border: none;
+    border-radius: 8px;
+    padding: 0 0.9rem;
+    background: #3b82f6;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.chat-form button:hover:not(:disabled) {
+    background: #2563eb;
+}
+
+.chat-form button:disabled,
+.chat-form input:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+
+/* Stili per la nuova sezione immagine/brand */
+.chat-branding {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0;
+    background-color: #f8f9fa; /* Sfondo neutro, modificalo se necessario */
+    border-bottom: 1px solid #e9ecef;
+}
+
+.chat-brand-img {
+    max-width: 120px; /* Regola la larghezza massima in base al tuo logo */
+    height: auto;
+    object-fit: contain;
+}
+
+/* Allineamento e spaziatura per le icone Bootstrap */
+.chat-header div {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Spazio tra l'icona e il testo */
+}
+
+.chat-header .bi-chat-dots {
+    font-size: 1.25rem; /* Dimensione dell'icona del titolo */
+}
+
+.chat-hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.chat-hint .bi-info-circle {
+    margin-top: 2px; /* Centratura ottica con il testo multi-linea */
+    color: #0dcaf0; /* Colore azzurro info (personalizzabile) */
+}
+
+#chatSend {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Ripulitura del pulsante di chiusura per ospitare l'icona */
+.chat-close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+}
+
+/* Allineamento interno dell'header */
+.chat-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Spazio tra il robot e il blocco di testo */
+}
+
+/* Contenitore del testo (Titolo + Sottotitolo) */
+.chat-title-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Stile per l'immagine del robot integrata */
+.chat-robot-inline {
+    width: 45px;       /* Dimensione equilibrata per l'altezza dell'header */
+    height: 45px;
+    object-fit: contain;
+    flex-shrink: 0;    /* Impedisce al robot di rimpicciolirsi se lo schermo è stretto */
+    /* Un leggero riflesso per dare profondità alla figura bianca */
+    filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.1)); 
+}
+
+/* Sistemazione per l'icona info del suggerimento centrale */
+.chat-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center; /* Mantiene il testo centrato come nel tuo screen originale */
+}
+
+/* Sistemazione per l'icona dentro il tasto invia */
+#chatSend {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
